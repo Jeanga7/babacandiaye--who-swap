@@ -1,3 +1,8 @@
+while true;
+do
 git add .
-git commit -m "$1"
+git commit -m "updates"
 git push
+
+sleep 300
+done
