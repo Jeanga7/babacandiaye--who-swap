@@ -24,3 +24,62 @@ func Sa(a []interface{}) []interface{} {
 	}
 	return a
 }
+
+func Sb(a []interface{}) []interface{} {
+	if len(a) > 1 {
+		res := append([]interface{}{a[1]}, a[0])
+		res = append(res, a[2:]...)
+		return res
+	}
+	return a
+}
+
+//////////////////////
+
+func Ra(a []interface{}) []interface{} {
+	if len(a) > 1 {
+		res := append([]interface{}{a[1]}, a[2:]...)
+		res = append(res, a[0])
+		return res
+	}
+	return a
+}
+
+func Rb(a []interface{}) []interface{} {
+	if len(a) > 1 {
+		res := append([]interface{}{a[1]}, a[2:]...)
+		res = append(res, a[0])
+		return res
+	}
+	return a
+}
+
+func Ss(a []interface{}, b []interface{}) ([]interface{}, []interface{}) {
+	return Sa(a), Sb(b)
+}
+
+func Rr(a []interface{}, b []interface{}) ([]interface{}, []interface{}) {
+	return Ra(a), Rb(b)
+}
+
+func Rra(a []interface{}) []interface{} {
+	if len(a) > 1 {
+		res := append([]interface{}{a[len(a)-1]}, a[:len(a)-1]...)
+		// res = append(res, a[0])
+		return res
+	}
+	return a
+}
+
+func Rrb(a []interface{}) []interface{} {
+	if len(a) > 1 {
+		res := append([]interface{}{a[len(a)-1]}, a[:len(a)-1]...)
+		// res = append(res, a[0])
+		return res
+	}
+	return a
+}
+
+func Rrr(a []interface{}, b []interface{}) ([]interface{}, []interface{}) {
+	return Rra(a), Rrb(b)
+}
