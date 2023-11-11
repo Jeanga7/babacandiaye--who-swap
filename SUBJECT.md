@@ -167,3 +167,91 @@ https://en.wikipedia.org/wiki/Sorting_algorithm
 
 ////////////////////////////////////////////////////////////////////////////////////
 
+fonction pushSwap(liste: Liste[int]):
+    si la liste est vide ou contient un seul élément:
+        // Déjà trié, rien à faire
+        retourner
+
+    // Initialiser les piles a et b
+    pileA = liste
+    pileB = vide
+
+    // Trier la pile
+    tant que la pileA n'est pas triée:
+        si la pileA est presque triée:
+            // Appliquer une optimisation spécifique pour les cas plus petits
+            appliquerOptimisation(pileA)
+        sinon:
+            // Trouver le meilleur mouvement pour progresser vers le tri
+            mouvement = trouverMeilleurMouvement(pileA, pileB)
+
+            // Appliquer le mouvement
+            appliquerMouvement(mouvement, pileA, pileB)
+
+    // Afficher les instructions utilisées pour trier la pile
+    afficherInstructions()
+
+    fonction appliquerOptimisation(pileA):
+    si la taille de la pileA est inférieure ou égale à 5:
+        // Utiliser une série d'instructions optimisées pour les petites piles
+        instructionsOptimisées = optimiserPetitesPiles(pileA)
+        // Appliquer les instructions optimisées à la pileA
+        appliquerInstructions(instructionsOptimisées, pileA)
+
+fonction optimiserPetitesPiles(pileA):
+    instructions = liste vide
+    // Implémenter des instructions spécifiques pour trier une petite pile
+    // Ces instructions pourraient être déterminées par essais et erreurs
+    retourner instructions
+
+fonction trouverMeilleurMouvement(pileA, pileB):
+    // Implémenter la logique pour trouver le meilleur mouvement
+    // Pour simplifier, considérons une approche gloutonne où nous essayons chaque mouvement possible
+    meilleurMouvement = null
+    meilleurScore = infini
+
+    pour chaque mouvement possible dans {pushA, pushB, swapA, swapB, rotateA, rotateB}:
+        copiePileA = copier(pileA)
+        copiePileB = copier(pileB)
+        appliquerMouvement(mouvement, copiePileA, copiePileB)
+        score = évaluerScore(copiePileA, copiePileB)
+
+        si score < meilleurScore:
+            meilleurScore = score
+            meilleurMouvement = mouvement
+
+    retourner meilleurMouvement
+
+fonction évaluerScore(pileA, pileB):
+    // Implémenter la logique pour évaluer la "qualité" d'une configuration de piles
+    // Un score plus bas indique une configuration plus proche du tri
+    retourner unScoreBasEstMeilleur(pileA, pileB)
+
+fonction appliquerMouvement(mouvement, pileA, pileB):
+    // Implémenter la logique pour appliquer le mouvement choisi
+    cas de mouvement:
+        pushA: 
+            // Déplacer le sommet de la pileB vers le sommet de la pileA
+            élément = dépiler(pileB)
+            empiler(pileA, élément)
+        pushB:
+            // Déplacer le sommet de la pileA vers le sommet de la pileB
+            élément = dépiler(pileA)
+            empiler(pileB, élément)
+        swapA:
+            // Échanger les deux premiers éléments de la pileA
+            échangerDeuxPremiers(pileA)
+        swapB:
+            // Échanger les deux premiers éléments de la pileB
+            échangerDeuxPremiers(pileB)
+        rotateA:
+            // Faire pivoter la pileA (déplacer le premier élément à la fin)
+            fairePivoter(pileA)
+        rotateB:
+            // Faire pivoter la pileB
+            fairePivoter(pileB)
+
+fonction afficherInstructions(instructions):
+    // Afficher les instructions utilisées pour trier la pile
+    pour chaque instruction dans instructions:
+        afficher(instruction)
