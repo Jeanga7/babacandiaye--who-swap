@@ -7,6 +7,7 @@ import (
 	"push/internals/models"
 	"push/internals/utils"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -14,7 +15,23 @@ func main() {
 		arg := os.Args[1]
 		var A_number models.Stack
 		var B_number models.Stack
-		for _, v := range arg {
+		if strings.Contains(arg, " ") {
+			for _, ch := range arg {
+				if (ch >= '0' || ch <= '9') || ch == 32 {
+					continue
+				} else {
+					fmt.Println("not a valid argument")
+					return
+				}
+			}
+		} else {
+			fmt.Println("not a valid argument")
+			return
+		}
+
+		entier := strings.Split(arg, " ")
+
+		for _, v := range entier {
 			n, err := strconv.Atoi(string(v))
 			if err != nil {
 				fmt.Println("Error")
