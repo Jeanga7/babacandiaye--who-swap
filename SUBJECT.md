@@ -181,25 +181,25 @@ https://en.wikipedia.org/wiki/Sorting_algorithm
 ---
 ---
 
-        si pile_A[0] > pile_A[1] alors 
+        {si} pile_A[0] > pile_A[1] alors 
             # le premier es superieur au deuxieme (cas 1, cas 3, cas 4)
-            si pile_A[1] > pile_A[2] alors
-                # Cas 4: le plus grand nombre est en haut
+            {si} pile_A[1] > pile_A[2] alors
+                # Cas 4: le plus grand nombre est en haut et le plus petit en bas
                 sa
                 rra
-            sinon
-                si pile_A[2] > pile_A[1] alors
-                    # Cas 3: le plus petit nombre est au milieu
+            {sinon}
+                {si} pile_A[0] > pile_A[2] alors
+                # Cas 3: le plus petit nombre est au milieu et le plus grand en haut
                     ra
-                sinon
-                    # Cas 3: le plus grand nombre est au milieu
+                {sinon}
+                    # Cas 1: le nombre intermediaire est en haut
                     sa
-                fin si
-            fin si
-        sinon
+                {fin si}
+            {fin si}
+        {sinon}
             si pile_A[1] > pile_A[2] alors
                 si pile_A[0] > pile_A[2] alors
-                    # Cas 4: le plus grand nombre est en bas
+                    # Cas 2: le plus grand au milieu et le plus petiten bas
                     sa
                     ra
                 sinon
