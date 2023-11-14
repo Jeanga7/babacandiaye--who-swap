@@ -218,7 +218,9 @@ https://en.wikipedia.org/wiki/Sorting_algorithm
         pb (pile_A[1], pile_B)
         appeller `trier_trois_nombres(pile_A, pile_B)`
         pa (pile_B[0], pile_A)
+        appeller `trier_trois_nombres(pile_A, pile_B)`
         pa (pile_B[1], pile_A)
+        appeller `trier_trois_nombres(pile_A, pile_B)`
    
 ### fonction trier_petite_pile(pile_A, pile_B)
     si taille(pile_A) = 3 alors
