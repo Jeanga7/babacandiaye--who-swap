@@ -260,7 +260,7 @@ fin fonction
 fin fonction
 
 ### fonction morceau_present(pile, morceau)
-    pour chaque nombre dans pile faire
+    pour chaque nombre dans pile
         si nombre est dans le morceau alors
             retourner vrai
         fin si
