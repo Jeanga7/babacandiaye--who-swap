@@ -1,25 +1,33 @@
 package main
-
-import ( // `[]interface{}` is a slice of empty interfaces. In Go, an empty interface (`interface{}`)
-	// is a type that can hold values of any type. By using `[]interface{}`, we are creating a
-	// slice that can hold values of any type. This allows us to create a stack that can store
-	// elements of different types.
-
+import (
 	"fmt"
 	"os"
 	"push/internals/cmd"
 	"push/internals/models"
 	"push/internals/utils"
 	"strconv"
+	"strings"
 )
-
 func main() {
-
 	if len(os.Args) == 2 {
 		arg := os.Args[1]
 		var A_number models.Stack
 		var B_number models.Stack
-		for _, v := range arg {
+		if strings.Contains(arg, " ") {
+			for _, ch := range arg {
+				if (ch >= '0' || ch <= '9') || ch == 32 {
+					continue
+				} else {
+					fmt.Println("not a valid argument")
+					return
+				}
+			}
+		} else {
+			fmt.Println("not a valid argument")
+			return
+		}
+		entier := strings.Split(arg, " ")
+		for _, v := range entier {
 			n, err := strconv.Atoi(string(v))
 			if err != nil {
 				fmt.Println("Error")
@@ -27,9 +35,7 @@ func main() {
 			}
 			A_number = append(A_number, n)
 		}
-
 		// sort.Ints(A_number)
-
 		for _, v := range A_number {
 			models.S.Push(v)
 		}
@@ -42,12 +48,9 @@ func main() {
 		}
 		fmt.Println("//////////////////////////////////////////////////////")
 		fmt.Println("After popping the top element ")
-
 		cmd.Pb(&A_number, &B_number)
-
 		fmt.Println("//////////////////////////////////////////////////////")
 		fmt.Println("PB ")
-
 		for i, n := range A_number {
 			var B_nb string
 			if i < len(B_number) {
@@ -61,12 +64,9 @@ func main() {
 				fmt.Println("a\tb")
 			}
 		}
-
 		fmt.Println("//////////////////////////////////////////////////////")
 		fmt.Println("PA")
-
 		cmd.Pb(&A_number, &B_number)
-
 		for i, n := range A_number {
 			var B_nb string
 			if i < len(B_number) {
@@ -80,17 +80,19 @@ func main() {
 				fmt.Println("a\tb")
 			}
 		}
-		fmt.Println(cmd.Sa(A_number))
+		cmd.Sa(&A_number)
+		fmt.Println(A_number...)
 		fmt.Println("/////////////////////////A_number")
-		fmt.Println(cmd.Ra(cmd.Sa(A_number))...)
-		fmt.Println("//////////////////////")
-		fmt.Println("After SS")
-		fmt.Println(cmd.Ss(cmd.Ra(cmd.Sa(A_number)), cmd.Ra(cmd.Sa(B_number))))
-		fmt.Println("////////////////////////////")
-		a, b := cmd.Ss(cmd.Ra(cmd.Sa(A_number)), cmd.Ra(cmd.Sa(B_number)))
-		fmt.Println("//////////////////////////////:")
-		fmt.Println("After RRR")
-		fmt.Println(cmd.Rrr(a, b))
+		cmd.Ra(&A_number)
+		fmt.Println(A_number...)
+		// fmt.Println("//////////////////////")
+		// fmt.Println("After SS")
+		// fmt.Println(cmd.Ss(cmd.Ra(cmd.Sa(A_number)), cmd.Ra(cmd.Sa(B_number))))
+		// fmt.Println("////////////////////////////")
+		// a, b := cmd.Ss(cmd.Ra(cmd.Sa(A_number)), cmd.Ra(cmd.Sa(B_number)))
+		// fmt.Println("//////////////////////////////:")
+		// fmt.Println("After RRR")
+		// fmt.Println(cmd.Rrr(a, b))
 		// fmt.Println(cmd.Rra(a)...)
 		// for i, n := range a {
 		// 	var B_nb string
