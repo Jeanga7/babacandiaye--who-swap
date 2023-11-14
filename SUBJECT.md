@@ -197,19 +197,20 @@ https://en.wikipedia.org/wiki/Sorting_algorithm
                 {fin si}
             {fin si}
         {sinon}
-            si pile_A[1] > pile_A[2] alors
-                si pile_A[0] > pile_A[2] alors
-                    # Cas 2: le plus grand au milieu et le plus petiten bas
+            {si} pile_A[1] > pile_A[2] alors
+                {si} pile_A[2] > pile_A[0] alors
+                    # Cas 5: le plus grand au milieu et le plus petit en haut
                     sa
                     ra
-                sinon
-                    # Cas 5: le plus grand nombre est au milieu
+                {sinon}
+                    # Cas 2: le plus grand nombre est au milieu
                     rra
-                fin si
-            sinon
+                {fin si}
+            {sinon}
                 # Cas 6: Les nombres sont déjà triés
-            fin si
-        fin si
+                retourne ou print deja triés
+            {fin si}
+        {fin si}
    
 
 ### fonction trier_cinq_nombres(pile_A, pile_B)
@@ -219,17 +220,71 @@ https://en.wikipedia.org/wiki/Sorting_algorithm
         pa (pile_B[0], pile_A)
         pa (pile_B[1], pile_A)
    
-
-fonction trier_grande_pile(pile_A, pile_B)
-    diviser pile_A en 11 morceaux
-    pour chaque morceau dans pile_A
-        trier_trois_nombres(morceau, pile_B)
-    fin pour
-    trier_B(pile_B)
-    reunir(pile_A, pile_B)
+### fonction trier_petite_pile(pile_A, pile_B)
+    si taille(pile_A) = 3 alors
+        trier_trois_nombres(pile_A)
+    sinon
+        trier_cinq_nombres(pile_A, pile_B)
+    fin si
 fin fonction
 
-fonction trier_B(pile_B)
+<!-- pour trier les grandes piles  -->
+
+### fonction trier_par_morceaux(pile_A, pile_B)
+    pour chaque morceau dans [0, 20, 40, 60, 80]
+        trier_morceau(pile_A, pile_B, morceau)
+    fin pour
+
+    trier_B(pile_B)
+
+    tant que non_est_vide(pile_B)
+        deplacer_max_vers_A(pile_B, pile_A)
+    fin tant que
+fin fonction
+
+### fonction trier_morceau(pile_A, pile_B, morceau)
+    tant que morceau_present(pile_A, morceau)
+        hold_first, hold_second = trouver_hold(pile_A, morceau)
+        deplacer_hold_top(pile_A, hold_first, hold_second)
+        nombre_a_placer = choisir_nombre_ra_rra(hold_first, hold_second)
+        deplacer_nombre_en_haut(pile_A, nombre_a_placer)
+    fin tant que
+fin fonction
+
+### fonction deplacer_max_vers_A(pile_src, pile_dest)
+    nombre_max = trouver_nombre_max(pile_src)
+    deplacer_en_haut(pile_src, nombre_max)
+    pa
+fin fonction
+
+### fonction morceau_present(pile, morceau)
+    pour chaque nombre dans pile faire
+        si nombre est dans le morceau alors
+            retourner vrai
+        fin si
+    fin pour
+    retourner faux
+fin fonction
+
+### fonction trouver_hold(pile_A, morceau)
+    pour chaque nombre dans pile_A faire
+        si nombre est dans le morceau alors
+            hold_first = nombre
+            hold_second = trouver_nombre_different_dans_morceau(pile_A, morceau, hold_first)
+            retourner hold_first, hold_second
+        fin si
+    fin pour
+fin fonction
+
+### fonction trouver_nombre_different_dans_morceau(pile_A, morceau, nombre_different)
+    pour chaque nombre dans pile_A
+        si nombre n'est pas dans le morceau et nombre != nombre_different alors
+            retourner nombre
+        fin si
+    fin pour
+fin fonction
+
+### fonction trier_B(pile_B)
     pour i de 0 à 99 faire
         smallsub = i
         pour j de i+1 à 99 faire
@@ -241,11 +296,11 @@ fonction trier_B(pile_B)
     fin pour
 fin fonction
 
-fonction push_swap(pile_A, pile_B)
+### fonction push_swap(pile_A, pile_B)
     si taille(pile_A) <= 5 alors
         trier_petite_pile(pile_A, pile_B)
     sinon
-        trier_grande_pile(pile_A, pile_B)
+        trier_par_morceaux(pile_A, pile_B)
     fin si
 fin fonction
 
