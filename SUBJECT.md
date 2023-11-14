@@ -167,44 +167,58 @@ https://en.wikipedia.org/wiki/Sorting_algorithm
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-fonction trier_trois_nombres(pile_A, pile_B)
-    si pile_A[0] > pile_A[1] alors
-        si pile_A[1] > pile_A[2] alors
-            # Cas 1: le plus grand nombre est en haut
-            sa
-            rra
-        sinon
-            si pile_A[0] > pile_A[2] alors
-                # Cas 2: le plus grand nombre est en bas
-                ra
-            sinon
-                # Cas 3: le plus grand nombre est au milieu
-                sa
-            fin si
-        fin si
-    sinon
-        si pile_A[1] > pile_A[2] alors
-            si pile_A[0] > pile_A[2] alors
-                # Cas 4: le plus grand nombre est en bas
-                sa
-                ra
-            sinon
-                # Cas 5: le plus grand nombre est au milieu
-                rra
-            fin si
-        sinon
-            # Cas 6: Les nombres sont déjà triés
-        fin si
-    fin si
-fin fonction
 
-fonction trier_cinq_nombres(pile_A, pile_B)
-    deplacer(pile_A[0], pile_B)
-    deplacer(pile_A[1], pile_B)
-    trier_trois_nombres(pile_A, pile_B)
-    deplacer(pile_B[0], pile_A)
-    deplacer(pile_B[1], pile_A)
-fin fonction
+### Fonction `trier_trois_nombres(pile_A, pile_B)`
+
+#### Il y a 5 cas possibles 
+
+---
+|         | cas 1#   | cas 2# 3 | cas 3# 3 | cas 4# 1 | cas 5# 2 |
+|--------:|:--------:|:--------:|:--------:|:--------:|:--------:|
+|         |    2     |    2     |    3     |    3     |    1     |
+|         |    1     |    3     |    1     |    2     |    3     |
+|         |    3     |    1     |    2     |    1     |    2     |
+---
+---
+
+        si pile_A[0] > pile_A[1] alors 
+            # le premier es superieur au deuxieme (cas 1, cas 3, cas 4)
+            si pile_A[1] > pile_A[2] alors
+                # Cas 4: le plus grand nombre est en haut
+                sa
+                rra
+            sinon
+                si pile_A[2] > pile_A[1] alors
+                    # Cas 3: le plus petit nombre est au milieu
+                    ra
+                sinon
+                    # Cas 3: le plus grand nombre est au milieu
+                    sa
+                fin si
+            fin si
+        sinon
+            si pile_A[1] > pile_A[2] alors
+                si pile_A[0] > pile_A[2] alors
+                    # Cas 4: le plus grand nombre est en bas
+                    sa
+                    ra
+                sinon
+                    # Cas 5: le plus grand nombre est au milieu
+                    rra
+                fin si
+            sinon
+                # Cas 6: Les nombres sont déjà triés
+            fin si
+        fin si
+   
+
+### fonction trier_cinq_nombres(pile_A, pile_B)
+        pb (pile_A[0], pile_B)
+        pb (pile_A[1], pile_B)
+        appeller `trier_trois_nombres(pile_A, pile_B)`
+        pa (pile_B[0], pile_A)
+        pa (pile_B[1], pile_A)
+   
 
 fonction trier_grande_pile(pile_A, pile_B)
     diviser pile_A en 11 morceaux
@@ -235,7 +249,7 @@ fonction push_swap(pile_A, pile_B)
     fin si
 fin fonction
 
-
+```
 ///////////////////////////////////////////////////////////////////////
 
 source :
