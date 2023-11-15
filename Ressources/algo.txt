@@ -1,0 +1,85 @@
+pile a :
+---» si min de a est à la position 0 (pb)
+---» si min de a est à la position 1 (sa)
+---» si min de a est à la derniere pos (rra)
+---» si max de a est à la position 0 (ra)
+---» si min est plus proche du haut (ra)
+---» si min est plus proche du bas (rra)
+pile b :
+---» si min de b est à la position 0 (rb)
+---» si min de b est plus proche du haut (rra)
+---» si min est plus proche du bas (ra)
+possibilité d'utiliser les deux coups :
+---» si pile a = pile b et max de b et min de a sont au milieu alors (ss)
+---» si pile a = pile b et max de a et min de b sont au milieu alors (rrr)
+---» si pile a = pile b et max de a et min de b sont en haut alors (rr)
+---» si pile a != pile b et max de b est à la pos[1] et min de a est ànla pos[1] (ss) 
+algorithm mediane :     
+on effectue la somme de tous les valeurs / sur le nbr d'objet
+ensuite on a la possibilité soit de :
+---» reperer les plus petites valeurs et (pb)
+---» effectuer un tri des plus petites valeurs et (pb)
+contre exemple :
+---» si on max de a à la pos[0] et min de a à la pos[1] il est plus optimal d'effectuer
+(ra)
+---» cas de la method des médianes(3min sur 6):
+---» si on un des 3min est à la pos[1] et l'autres à la pos[len] alors (sa) gagne la priorité sur (rra) 
+---» si max de a est à la pos[0] et min de a est à la pos[1] possibilité d'utiliser (ra) pour optimiser le code
+---» voir le grand dans ton note 
+
+
+fonction trier_pile_a():
+    tant que pile_a n'est pas triée:
+        si min de a est à la position 0:
+            effectuer (pb)
+        sinon si min de a est à la position 1:
+            effectuer (sa)
+        sinon si min de a est à la dernière position:
+            effectuer (rra)
+        sinon si max de a est à la position 0:
+            effectuer (ra)
+        sinon si min est plus proche du haut:
+            effectuer (ra)
+        sinon si min est plus proche du bas:
+            effectuer (rra)
+
+fonction trier_pile_b():
+    tant que pile_b n'est pas triée:
+        si min de b est à la position 0:
+            effectuer (rb)
+        sinon si min de b est à la dernière position:
+            effectuer (ra)
+        sinon si min de b est plus proche du haut:
+            effectuer (rra)
+        sinon si min est plus proche du bas:
+            effectuer (ra)
+
+fonction coups_communs():
+    si pile_a = pile_b et max de b et min de a sont au milieu:
+        effectuer (ss)
+    sinon si pile_a = pile_b et max de a et min de b sont au milieu:
+        effectuer (rrr)
+    sinon si pile_a = pile_b et max de a et min de b sont en haut:
+        effectuer (rr)
+    sinon si pile a != pile b et max de b est à la pos[1] et min de a est ànla pos[1] (ss) 
+
+fonction mediane():
+    somme = 0
+    pour chaque élément dans la pile_a:
+        somme += élément
+    moyenne = somme / taille de la pile_a
+
+    si min de a est plus proche du haut que moyenne:
+        trier_pile_a() avec (pb)
+    sinon:
+        trier_pile_a() avec tri des plus petites valeurs et (pb)
+
+    contre-exemple():
+        si max de a est à la position 0 et min de a est à la position 1:
+            trier_pile_a() avec (ra)
+
+        si un des 3 min de a est à la position 1 et les autres à la dernière position:
+            trier_pile_a() avec (sa) prioritaires sur (rra)
+
+        si max de a est à la position 0 et min de a est à la position 1:
+            trier_pile_a() avec (ra)

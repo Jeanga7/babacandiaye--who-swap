@@ -1,0 +1,30 @@
+ppnbr étant les plus petit nombre de la pile    fait
+--» si on a 6 = 3 
+--» si on a 5 = 2
+--» si on a 7 = 3 
+---»tantqu'une pile n'est pas ordonnée fait à moitié
+l'algo verifie d'abord si le ppnbr du pile a (ppnbr_min_a) est à la position[0]
+si oui (pb) si non il verifie si il est à la derniere position
+si oui (rra) sinon il verifie s'il est à la position[1] 
+si oui (sa) sinon il verifie si on a max_a à la pos[0] et min_a à la position[len] et la position du valeur qui vient apres max_a est pos [1] 
+si oui (sa) sinon il verifie si le plus grand nbr du pile a (max_a) est à la premiere positon 
+si oui (ra) sinon il verifie  si ppnbr_min_a est plus proche du haut 
+si oui (ra) sinon il verifie si ppnbr_min_a est plus proche du bas 
+si oui (rra) sinon 
+---»tantque pile b different de vide
+verifie si max_b (plus grand nombre du pile b) et min_a (plus petit nombre de a) sont au milieu 
+si oui (ss) sinon verifie si max_a et min_b sont au milieu ( ou avant derniere position)
+si oui (rrr) sinon verifie si max_a et min_b sont en haut des piles (pos[0] ou pos[1])
+si oui (rr) sinon si min_b est à la position[0] 
+si oui (rb) sinon verifie si max_b est à la position[1]
+si oui (sb) sinon verifie si min_b est plus proche du bas 
+si oui (rrb) sinon verifie si max_b est plus proche du haut 
+si oui (rb) 
+---»avant chaque move(dplacement) l'algo verifie si pile a est ascendant et pile b est descendant
+si un 1 de ses pile verifie la condition on le touche plus
+---»optimisation
+si max_a est à la position[0] et min_a est à la position[1] on effectue (ra)
+si un des ppnbr_a est à la position[0] et l'aute à la position[len] on effectue (sa)
+au lieu de (rra) 
+---» warning
+si on a max_a à la pos[0] et min_a à la position[len] possibilité de boucle infinie contournablecbn
