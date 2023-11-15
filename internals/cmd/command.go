@@ -4,15 +4,15 @@ import (
 	"push/internals/models"
 )
 
-func Pa(b *models.Stack, a *models.Stack) (models.Stack, models.Stack) {
+func Pa(b *models.Stack, a *models.Stack) {
 	x := b.Unshift()
 	a.Shift(x)
-	return *a, *b
+	// return *a, *b
 }
-func Pb(a *models.Stack, b *models.Stack) (models.Stack, models.Stack) {
+func Pb(a *models.Stack, b *models.Stack) {
 	x := a.Unshift()
 	b.Shift(x)
-	return *a, *b
+	// return *a, *b
 }
 
 // func Sa(a []interface{}) []interface{} {
@@ -38,6 +38,11 @@ func Sb(a *models.Stack) {
 		res = append(res, (*a)[2:]...)
 		*a = res
 	}
+}
+
+func Ss(a *models.Stack, b *models.Stack) {
+	Sa(a)
+	Sb(b)
 }
 
 // ////////////////////

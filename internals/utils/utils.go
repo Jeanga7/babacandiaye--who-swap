@@ -99,28 +99,54 @@ func Swapper(A_number *models.Stack, B_numbers *models.Stack, low []int) {
 
 	for i, n := range *A_number {
 		CheckPos(A_number, low, &P)
+		min := MinA(A_number)
+
 		for _, l := range low {
-			if n == l && i == 0 {
+			if (n == l && i == 0) && A_number.Size() >= B_numbers.Size() {
 				cmd.Pb(A_number, B_numbers)
 				break
 			}
-			if n == l && i == A_number.Size() {
+			if n == l && i == A_number.Size()-1 {
 				cmd.Rra(A_number)
 				break
 			}
 			if n == l && i == 1 {
 				cmd.Sa(A_number)
+				break
 			}
+			if IsSorted(B_numbers) && IsinvSorted(A_number) {
+				cmd.Ss(A_number, B_numbers)
+			}
+			if IsinvSorted(A_number) {
+				for i := 0; i < A_number.Size()-1; i++ {
+					cmd.Rra(A_number)
+					if IsSorted(A_number) {
+						return
+					}
+				}
+			}
+			if A_number.Size()%2 == 1 {
+				if n == min && i == (A_number.Size()/2)+1 {
+					cmd.Rra(A_number)
+				}
+
+			}
+			// if A_number.Size()%2 == 0 {
+
+			// 	if (n == min && i == A_number.Size()) && (n == min && i == B_numbers.Size()) {
+			// 		cmd.Rra(A_number)
+			// 	}
+			// }
 		}
 	}
 
-	for i, n := range *A_number {
-		fmt.Printf("%d\n", n)
-		if i == (A_number.Size())-1 {
-			fmt.Println("=\t=")
-			fmt.Println("a\tb")
-		}
-	}
+	// for i, n := range *A_number {
+	// 	fmt.Printf("%d\n", n)
+	// 	if i == (A_number.Size())-1 {
+	// 		fmt.Println("=\t=")
+	// 		fmt.Println("a\tb")
+	// 	}
+	// }
 
 	for i, n := range *A_number {
 		var B_nb string
@@ -138,9 +164,23 @@ func Swapper(A_number *models.Stack, B_numbers *models.Stack, low []int) {
 
 	if !IsSorted(A_number) {
 		Swapper(A_number, B_numbers, low)
+		// SortedA(A_number)
 	} else {
-		return
+		cmd.Pa(B_numbers, A_number)
+		if B_numbers.Size() == 0 {
+			if !IsSorted(A_number) {
+				for i := 0; i < A_number.Size()-1; i++ {
+					// CheckPos(A_number, low, &P)
+					if (*A_number)[i].(int) > (*A_number)[i+1].(int) {
+						cmd.Sa(A_number)
+					}
+				}
+			} else {
+				return
+			}
+		}
 	}
+
 }
 
 func IsSorted(stack *models.Stack) bool {
@@ -150,4 +190,31 @@ func IsSorted(stack *models.Stack) bool {
 		}
 	}
 	return true
+}
+
+func SortedA(stack *models.Stack) {
+
+	if (*stack)[0].(int) > (*stack)[1].(int) {
+		cmd.Sa(stack)
+	}
+
+}
+
+func IsinvSorted(stack *models.Stack) bool {
+	for i := 0; i < stack.Size()-1; i++ {
+		if (*stack)[i].(int) < (*stack)[i+1].(int) {
+			return false
+		}
+	}
+	return true
+}
+
+func MinA(a *models.Stack) int {
+	min := 1000000000000
+	for _, x := range *a {
+		if x.(int) < min {
+			min = x.(int)
+		}
+	}
+	return min
 }
