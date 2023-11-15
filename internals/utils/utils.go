@@ -3,8 +3,15 @@ package utils
 import (
 	"fmt"
 	"os"
+	"push/internals/cmd"
+	"push/internals/models"
 	"runtime"
+	"sort"
 )
+
+type Positions struct {
+	Pos []int
+}
 
 func Throw(message string) {
 	fmt.Printf("\033[38;2;255;0;0m%v\033[0m\n", message)
@@ -16,4 +23,131 @@ func Log() string {
 	callinFunc := runtime.FuncForPC(pc).Name()
 	errMessage := fmt.Sprintf(" %v at line %v", callinFunc, line)
 	return errMessage
+}
+
+func Check_lower(a *models.Stack) {
+	taille := a.Size()
+	if taille%2 == 0 {
+		low := 1000000000000
+		for _, ch := range *a {
+			if ch.(int) < low {
+				low = ch.(int)
+			}
+		}
+		fmt.Println(low)
+	}
+	if taille%2 == 1 {
+		low := 10000000000
+		for _, ch := range *a {
+			if ch.(int) < low {
+				low = ch.(int)
+			}
+		}
+		fmt.Println(low)
+	}
+	fmt.Println(*a)
+}
+
+func Check_low(a []int) []int {
+	taille := len(a)
+	sort.Ints(a)
+	var low []int
+	if taille%2 == 0 {
+
+		for i, ch := range a {
+			if i < taille/2 {
+				low = append(low, ch)
+			}
+		}
+		fmt.Println(low)
+	}
+	if taille%2 == 1 {
+		for i, ch := range a {
+			if i <= (taille/2)-1 {
+				low = append(low, ch)
+			}
+		}
+		fmt.Println(low)
+	}
+	return low
+}
+
+func CheckPos(a *models.Stack, low []int, pos *Positions) {
+	pos.Pos = nil
+	for i, n := range *a {
+		for _, l := range low {
+			if n.(int) == l {
+				pos.Pos = append(pos.Pos, i)
+				break
+			}
+		}
+	}
+	// fmt.Println(pos.Pos)
+}
+func Swapper(A_number *models.Stack, B_numbers *models.Stack, low []int) {
+	// var B_numbers models.Stack
+	var P Positions
+	fmt.Println(*A_number...)
+
+	for i, n := range *A_number {
+		fmt.Printf("%d\n", n)
+		if i == (A_number.Size())-1 {
+			fmt.Println("=\t=")
+			fmt.Println("a\tb")
+		}
+	}
+
+	for i, n := range *A_number {
+		CheckPos(A_number, low, &P)
+		for _, l := range low {
+			if n == l && i == 0 {
+				cmd.Pb(A_number, B_numbers)
+				break
+			}
+			if n == l && i == A_number.Size() {
+				cmd.Rra(A_number)
+				break
+			}
+			if n == l && i == 1 {
+				cmd.Sa(A_number)
+			}
+		}
+	}
+
+	for i, n := range *A_number {
+		fmt.Printf("%d\n", n)
+		if i == (A_number.Size())-1 {
+			fmt.Println("=\t=")
+			fmt.Println("a\tb")
+		}
+	}
+
+	for i, n := range *A_number {
+		var B_nb string
+		if i < B_numbers.Size() {
+			B_nb = fmt.Sprintf("%d", (*B_numbers)[i])
+		} else {
+			B_nb = ""
+		}
+		fmt.Printf("%d\t%s\n", n, B_nb)
+		if i == A_number.Size()-1 {
+			fmt.Println("=\t=")
+			fmt.Println("a\tb")
+		}
+	}
+
+	if !IsSorted(A_number) {
+		Swapper(A_number, B_numbers, low)
+	} else {
+		return
+	}
+}
+
+func IsSorted(stack *models.Stack) bool {
+	for i := 0; i < stack.Size()-1; i++ {
+		if (*stack)[i].(int) > (*stack)[i+1].(int) {
+			return false
+		}
+	}
+	return true
 }

@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"push/internals/cmd"
 	"push/internals/models"
 	"push/internals/utils"
 	"strconv"
@@ -30,66 +29,41 @@ func main() {
 		}
 
 		entier := strings.Split(arg, " ")
-
+		var en []int
 		for _, v := range entier {
 			n, err := strconv.Atoi(string(v))
 			if err != nil {
 				fmt.Println("Error")
 				return
 			}
+			en = append(en, n)
 			A_number = append(A_number, n)
 		}
 		// sort.Ints(A_number)
 		for _, v := range A_number {
 			models.S.Push(v)
 		}
-		for i, n := range A_number {
-			fmt.Printf("%d\n", n)
-			if i == (A_number.Size())-1 {
-				fmt.Println("=\t=")
-				fmt.Println("a\tb")
-			}
-		}
-		fmt.Println("//////////////////////////////////////////////////////")
-		fmt.Println("After popping the top element ")
-		cmd.Pb(&A_number, &B_number)
-		fmt.Println("//////////////////////////////////////////////////////")
-		fmt.Println("PB ")
-		for i, n := range A_number {
-			var B_nb string
-			if i < len(B_number) {
-				B_nb = fmt.Sprintf("%d", B_number[i])
-			} else {
-				B_nb = ""
-			}
-			fmt.Printf("%d\t%s\n", n, B_nb)
-			if i == (A_number.Size())-1 {
-				fmt.Println("=\t=")
-				fmt.Println("a\tb")
-			}
-		}
-		fmt.Println("//////////////////////////////////////////////////////")
-		fmt.Println("PA")
-		cmd.Pb(&A_number, &B_number)
-		for i, n := range A_number {
-			var B_nb string
-			if i < len(B_number) {
-				B_nb = fmt.Sprintf("%d", B_number[i])
-			} else {
-				B_nb = ""
-			}
-			fmt.Printf("%d\t%s\n", n, B_nb)
-			if i == (A_number.Size())-1 {
-				fmt.Println("=\t=")
-				fmt.Println("a\tb")
-			}
-		}
-		cmd.Sa(&A_number)
+
+		var P utils.Positions
+
+		low := utils.Check_low(en)
+		// fmt.Println(low)
+		// fmt.Println("*******************************************")
 		fmt.Println(A_number...)
-		fmt.Println("/////////////////////////A_number")
-		cmd.Ra(&A_number)
+		utils.CheckPos(&A_number, low, &P)
+		fmt.Println(P)
+		fmt.Println("///////////////////////////////////////////////////////////////////////////")
+		utils.Check_lower(&A_number)
+
+		utils.Swapper(&A_number, &B_number, low)
+		utils.CheckPos(&A_number, low, &P)
+		fmt.Println("this is the new positions")
 		fmt.Println(A_number...)
-		// fmt.Println("//////////////////////")
+		fmt.Println(P)
+		fmt.Println("^^^^^^^^^^^^^^^^^^")
+		// utils.Swapper(&A_number, &B_number, low)
+		// utils.Swapper(&A_number, &B_number, low)
+		// fmt.Println(A_number...)
 		// fmt.Println("After SS")
 		// fmt.Println(cmd.Ss(cmd.Ra(cmd.Sa(A_number)), cmd.Ra(cmd.Sa(B_number))))
 		// fmt.Println("////////////////////////////")
