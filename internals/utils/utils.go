@@ -87,8 +87,10 @@ func CheckPos(a *models.Stack, low []int, pos *Positions) {
 func Swapper(A_number *models.Stack, B_numbers *models.Stack, low []int) {
 	// var B_numbers models.Stack
 	var P Positions
-	fmt.Println(*A_number...)
-
+	// fmt.Println(*A_number...)
+	if IsSorted(A_number) {
+		return
+	}
 	for i, n := range *A_number {
 		fmt.Printf("%d\n", n)
 		if i == (A_number.Size())-1 {
@@ -96,30 +98,61 @@ func Swapper(A_number *models.Stack, B_numbers *models.Stack, low []int) {
 			fmt.Println("a\tb")
 		}
 	}
-
+outerloop:
 	for i, n := range *A_number {
 		CheckPos(A_number, low, &P)
 		min := MinA(A_number)
+		if IsSorted(A_number) {
+			for i := B_numbers.Size() - 1; i >= 0; i-- {
+				cmd.Pa(B_numbers, A_number)
+				fmt.Println("Pa")
+				if i == 0 {
+					if IsSorted(A_number) {
+						fmt.Println("tryying")
+						return
+					} else {
+						cmd.Sa(A_number)
+						fmt.Println("Sa")
+						fmt.Println(*A_number...)
+						fmt.Println("Test")
+						return
+					}
+				}
+			}
 
+		}
 		for _, l := range low {
 			if (n == l && i == 0) && A_number.Size() >= B_numbers.Size() {
 				cmd.Pb(A_number, B_numbers)
-				break
+				fmt.Println("Pb")
+				fmt.Println(*A_number...)
+				models.Count++
+				break outerloop
 			}
 			if n == l && i == A_number.Size()-1 {
 				cmd.Rra(A_number)
-				break
+				fmt.Println("Rra")
+				models.Count++
+				break outerloop
 			}
 			if n == l && i == 1 {
 				cmd.Sa(A_number)
-				break
+				fmt.Println("Sa")
+				fmt.Println("je vais MAMa")
+				models.Count++
+				break outerloop
 			}
 			if IsSorted(B_numbers) && IsinvSorted(A_number) {
 				cmd.Ss(A_number, B_numbers)
+				fmt.Println("SS")
+				models.Count++
 			}
 			if IsinvSorted(A_number) {
 				for i := 0; i < A_number.Size()-1; i++ {
 					cmd.Rra(A_number)
+					fmt.Println("Rra")
+
+					models.Count++
 					if IsSorted(A_number) {
 						return
 					}
@@ -128,6 +161,8 @@ func Swapper(A_number *models.Stack, B_numbers *models.Stack, low []int) {
 			if A_number.Size()%2 == 1 {
 				if n == min && i == (A_number.Size()/2)+1 {
 					cmd.Rra(A_number)
+					fmt.Println("Rra")
+					models.Count++
 				}
 
 			}
@@ -163,20 +198,30 @@ func Swapper(A_number *models.Stack, B_numbers *models.Stack, low []int) {
 	}
 
 	if !IsSorted(A_number) {
+		fmt.Println(".....................")
 		Swapper(A_number, B_numbers, low)
 		// SortedA(A_number)
 	} else {
-		cmd.Pa(B_numbers, A_number)
-		if B_numbers.Size() == 0 {
-			if !IsSorted(A_number) {
-				for i := 0; i < A_number.Size()-1; i++ {
-					// CheckPos(A_number, low, &P)
-					if (*A_number)[i].(int) > (*A_number)[i+1].(int) {
-						cmd.Sa(A_number)
+		for i := B_numbers.Size() - 1; i >= 0; i-- {
+			cmd.Pa(B_numbers, A_number)
+			fmt.Println("Pa")
+
+			models.Count++
+			if i == 0 {
+				if !IsSorted(A_number) {
+					for i := 0; i < A_number.Size()-1; i++ {
+						// CheckPos(A_number, low, &P)
+						if (*A_number)[i].(int) > (*A_number)[i+1].(int) {
+							cmd.Sa(A_number)
+							fmt.Println("sa")
+							models.Count++
+						}
 					}
+				} else {
+					// fmt.Println("hello")
+					// fmt.Println(models.Count)
+					return
 				}
-			} else {
-				return
 			}
 		}
 	}

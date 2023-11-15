@@ -59,6 +59,7 @@ func main() {
 		// utils.CheckPos(&A_number, low, &P)
 		fmt.Println("this is the new positions")
 		fmt.Println(A_number...)
+		fmt.Println(models.Count)
 		// fmt.Println(P)
 		// fmt.Println("^^^^^^^^^^^^^^^^^^")
 		// utils.Swapper(&A_number, &B_number, low)

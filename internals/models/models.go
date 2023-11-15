@@ -6,4 +6,5 @@ var (
 	A           Stack
 	B           Stack
 	S           Stack
+	Count       int
 )
