@@ -49,6 +49,7 @@ func main() {
 		low := utils.Check_low(en)
 		// fmt.Println(low)
 		// fmt.Println("*******************************************")
+		// fmt.Println(A_number.Size())
 		fmt.Println(A_number...)
 		utils.CheckPos(&A_number, low, &P)
 		fmt.Println(P)

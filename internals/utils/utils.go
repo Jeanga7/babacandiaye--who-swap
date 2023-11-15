@@ -105,6 +105,7 @@ outerloop:
 		if IsSorted(A_number) {
 			for i := B_numbers.Size() - 1; i >= 0; i-- {
 				cmd.Pa(B_numbers, A_number)
+				models.Count++
 				fmt.Println("Pa")
 				if i == 0 {
 					if IsSorted(A_number) {
@@ -122,16 +123,47 @@ outerloop:
 
 		}
 		for _, l := range low {
-			if (n == l && i == 0) && A_number.Size() >= B_numbers.Size() {
-				cmd.Pb(A_number, B_numbers)
-				fmt.Println("Pb")
-				fmt.Println(*A_number...)
+			if A_number.Size() == 3 && n == l && i == 1 {
+				if (*A_number)[0].(int) > (*A_number)[2].(int) {
+					cmd.Sa(A_number)
+					fmt.Println("Sa")
+					models.Count++
+					break outerloop
+				}
+				if (*A_number)[2].(int) > (*A_number)[0].(int) {
+					cmd.Sa(A_number)
+					fmt.Println("Sa")
+					models.Count++
+					break outerloop
+				}
+			}
+			if IsinvSorted(A_number) {
+				cmd.Rra(A_number)
+				fmt.Println("Rra")
 				models.Count++
 				break outerloop
+			}
+			if A_number.Size() == 3 && n == l && i == 0 {
+				if (*A_number)[2].(int) > (*A_number)[1].(int) {
+					cmd.Rra(A_number)
+					fmt.Println("Rra")
+					cmd.Sa(A_number)
+					fmt.Println("Sa")
+					models.Count++
+					break outerloop
+				}
+
 			}
 			if n == l && i == A_number.Size()-1 {
 				cmd.Rra(A_number)
 				fmt.Println("Rra")
+				models.Count++
+				break outerloop
+			}
+			if (n == l && i == 0) && A_number.Size() >= B_numbers.Size() {
+				cmd.Pb(A_number, B_numbers)
+				fmt.Println("Pb")
+				fmt.Println(*A_number...)
 				models.Count++
 				break outerloop
 			}
@@ -142,10 +174,17 @@ outerloop:
 				models.Count++
 				break outerloop
 			}
-			if IsSorted(B_numbers) && IsinvSorted(A_number) {
+			if IsinvSorted(A_number) {
+				cmd.Rra(A_number)
+				fmt.Println("Rra")
+				models.Count++
+				break outerloop
+			}
+			if IsSorted(B_numbers) && IsinvSorted(A_number) && B_numbers.Size() > 2 {
 				cmd.Ss(A_number, B_numbers)
 				fmt.Println("SS")
 				models.Count++
+				break outerloop
 			}
 			if IsinvSorted(A_number) {
 				for i := 0; i < A_number.Size()-1; i++ {
@@ -205,7 +244,6 @@ outerloop:
 		for i := B_numbers.Size() - 1; i >= 0; i-- {
 			cmd.Pa(B_numbers, A_number)
 			fmt.Println("Pa")
-
 			models.Count++
 			if i == 0 {
 				if !IsSorted(A_number) {
