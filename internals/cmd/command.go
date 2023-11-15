@@ -15,15 +15,6 @@ func Pb(a *models.Stack, b *models.Stack) {
 	// return *a, *b
 }
 
-// func Sa(a []interface{}) []interface{} {
-// 	if len(a) > 1 {
-// 		res := append([]interface{}{a[1]}, a[0])
-// 		res = append(res, a[2:]...)
-// 		return res
-// 	}
-// 	return a
-// }
-
 func Sa(a *models.Stack) {
 	if len(*a) > 1 {
 		res := append([]interface{}{(*a)[1]}, (*a)[0])

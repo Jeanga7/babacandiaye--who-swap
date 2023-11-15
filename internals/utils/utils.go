@@ -25,6 +25,7 @@ func Log() string {
 	return errMessage
 }
 
+// à supprimer je pense
 func Check_lower(a *models.Stack) {
 	taille := a.Size()
 	if taille%2 == 0 {
@@ -48,6 +49,8 @@ func Check_lower(a *models.Stack) {
 	fmt.Println(*a)
 }
 
+// check the lowest numbers given by the user
+// à supprimer je pense
 func Check_low(a []int) []int {
 	taille := len(a)
 	sort.Ints(a)
@@ -72,6 +75,8 @@ func Check_low(a []int) []int {
 	return low
 }
 
+//Check the position of the lowest numbers in the stack
+
 func CheckPos(a *models.Stack, low []int, pos *Positions) {
 	pos.Pos = nil
 	for i, n := range *a {
@@ -84,6 +89,8 @@ func CheckPos(a *models.Stack, low []int, pos *Positions) {
 	}
 	// fmt.Println(pos.Pos)
 }
+
+// this function has the role of swapping until having all the intergers sorted
 func Swapper(A_number *models.Stack, B_numbers *models.Stack, low []int) {
 	// var B_numbers models.Stack
 	var P Positions
@@ -102,26 +109,26 @@ outerloop:
 	for i, n := range *A_number {
 		CheckPos(A_number, low, &P)
 		min := MinA(A_number)
-		if IsSorted(A_number) {
-			for i := B_numbers.Size() - 1; i >= 0; i-- {
-				cmd.Pa(B_numbers, A_number)
-				models.Count++
-				fmt.Println("Pa")
-				if i == 0 {
-					if IsSorted(A_number) {
-						fmt.Println("tryying")
-						return
-					} else {
-						cmd.Sa(A_number)
-						fmt.Println("Sa")
-						fmt.Println(*A_number...)
-						fmt.Println("Test")
-						return
-					}
-				}
-			}
+		// if IsSorted(A_number) {
+		// 	for i := B_numbers.Size() - 1; i >= 0; i-- {
+		// 		cmd.Pa(B_numbers, A_number)
+		// 		models.Count++
+		// 		fmt.Println("Pa")
+		// 		if i == 0 {
+		// 			if IsSorted(A_number) {
+		// 				fmt.Println("tryying")
+		// 				return
+		// 			} else {
+		// 				cmd.Sa(A_number)
+		// 				fmt.Println("Sa")
+		// 				fmt.Println(*A_number...)
+		// 				fmt.Println("Test")
+		// 				return
+		// 			}
+		// 		}
+		// 	}
 
-		}
+		// }
 		for _, l := range low {
 			if A_number.Size() == 3 && n == l && i == 1 {
 				if (*A_number)[0].(int) > (*A_number)[2].(int) {
@@ -180,7 +187,7 @@ outerloop:
 				models.Count++
 				break outerloop
 			}
-			if IsSorted(B_numbers) && IsinvSorted(A_number) && B_numbers.Size() > 2 {
+			if IsSorted(B_numbers) && IsinvSorted(A_number) && B_numbers.Size() >= 2 {
 				cmd.Ss(A_number, B_numbers)
 				fmt.Println("SS")
 				models.Count++
@@ -202,9 +209,15 @@ outerloop:
 					cmd.Rra(A_number)
 					fmt.Println("Rra")
 					models.Count++
+					break outerloop
 				}
 
 			}
+			// if A_number.Size() == B_numbers.Size() && IsinvSorted(B_numbers){
+			// 	if n == MinA(A_number) && i==0{
+
+			// 	}
+			// }
 			// if A_number.Size()%2 == 0 {
 
 			// 	if (n == min && i == A_number.Size()) && (n == min && i == B_numbers.Size()) {
@@ -212,6 +225,18 @@ outerloop:
 			// 	}
 			// }
 		}
+
+		// if !IsSorted(A_number) && n == min && i == 0 {
+		// 	for _, num := range *A_number {
+		// 		test := 10000
+		// 		if num == n {
+		// 			continue
+		// 		}
+		// 		if num.(int) < test {
+		// 			test = num.(int)
+		// 		}
+		// 	}
+		// }
 	}
 
 	// for i, n := range *A_number {
