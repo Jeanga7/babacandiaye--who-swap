@@ -169,7 +169,7 @@ outerloop:
 				models.Count++
 				break outerloop
 			}
-			if (n == l && i == 0) && A_number.Size() >= B_numbers.Size() {
+			if n == l && i == 0 && A_number.Size() >= B_numbers.Size() {
 				cmd.Pb(A_number, B_numbers)
 				fmt.Println("Pb")
 				fmt.Println(*A_number...)
@@ -190,11 +190,35 @@ outerloop:
 				models.Count++
 				break outerloop
 			}
-			if n == Minmax.Min && i == 1 {
-				fmt.Println("je suis min", Minmax.Min)
-				cmd.Sa(A_number)
-				fmt.Println("Sa")
-				fmt.Println("je vais MAMa")
+		}
+		////////////////////////////////////////////////// after low//////////////////::
+
+		if A_number.Size()%2 == 0 && !IsSorted(A_number) {
+
+			if n == Minmax.Min && i > A_number.Size()/2 {
+				cmd.Rra(A_number)
+				fmt.Println("Rra")
+				models.Count++
+				break outerloop
+			}
+			if n == Minmax.Min && i <= A_number.Size()/2 && i != 0 {
+				cmd.Ra(A_number)
+				fmt.Println("Ra")
+				models.Count++
+				break outerloop
+			}
+
+		}
+		if A_number.Size()%2 == 1 && !IsSorted(A_number) {
+			if n == Minmax.Min && i > A_number.Size()/2 && i != 0 {
+				cmd.Rra(A_number)
+				fmt.Println("Rra")
+				models.Count++
+				break outerloop
+			}
+			if n == Minmax.Min && i <= A_number.Size()/2 && i != 0 {
+				cmd.Ra(A_number)
+				fmt.Println("Ra")
 				models.Count++
 				break outerloop
 			}
@@ -223,38 +247,7 @@ outerloop:
 			models.Count++
 			break outerloop
 		}
-		// if IsinvSorted(A_number) {
-		// 	cmd.Rra(A_number)
-		// 	fmt.Println("Rra")
-		// 	models.Count++
-		// 	break outerloop
-		// }
-		// if IsSorted(B_numbers) && IsinvSorted(A_number) && B_numbers.Size() >= 2 {
-		// 	cmd.Ss(A_number, B_numbers)
-		// 	fmt.Println("SS")
-		// 	models.Count++
-		// 	break outerloop
-		// }
-		// if A_number.Size()%2 == 1 {
-		// 	if n == min && i == (A_number.Size()/2)+1 {
-		// 		cmd.Rra(A_number)
-		// 		fmt.Println("Rra")
-		// 		models.Count++
-		// 		break outerloop
-		// 	}
-
-		// }
-		// if IsinvSorted(A_number) {
-		// 	for i := 0; i < A_number.Size()-1; i++ {
-		// 		cmd.Rra(A_number)
-		// 		fmt.Println("Rra")
-
-		// 		models.Count++
-		// 		if IsSorted(A_number) {
-		// 			return
-		// 		}
-		// 	}
-		// }
+		fmt.Println("ceci est dans B_numbers", B_numbers)
 	}
 
 	if !IsSorted(A_number) {
@@ -293,12 +286,6 @@ outerloop:
 					}
 				}
 			}
-			// if IsSorted(A_number) {
-			// 	return
-			// } else {
-			// 	// SwapA(A_number, B_numbers)
-
-			// }
 
 		} else {
 			fmt.Println("je fais le SwapB")
@@ -310,58 +297,63 @@ outerloop:
 
 func SwapB(A_number *models.Stack, B_numbers *models.Stack) {
 	var Minmax MinMax
-	CheckMinMax(B_numbers, &Minmax)
 outerloop:
 	for i, n := range *B_numbers {
-		if !IsinvSorted(B_numbers) {
+		CheckMinMax(B_numbers, &Minmax)
+		// if !IsinvSorted(B_numbers) {
+		if n == Minmax.Max && i == 0 {
+			cmd.Pa(B_numbers, A_number)
+			fmt.Println("Pa")
+			models.Count++
+			break outerloop
+		}
+		if IsinvSorted(B_numbers) {
+			cmd.Pa(B_numbers, A_number)
+			fmt.Println("Pa")
+			models.Count++
+			break outerloop
+		}
+		if n == Minmax.Max && i == 1 {
+			cmd.Sb(B_numbers)
+			fmt.Println("Sb")
+			models.Count++
+			break outerloop
+		}
+		if B_numbers.Size()%2 == 0 && !IsinvSorted(B_numbers) {
+
+			if n == Minmax.Max && i > B_numbers.Size()/2 && i != 0 {
+				cmd.Rrb(B_numbers)
+				fmt.Println("Rrb")
+				models.Count++
+				break outerloop
+			}
+			if n == Minmax.Max && i <= B_numbers.Size()/2 && i != 0 {
+				cmd.Rb(B_numbers)
+				fmt.Println("Rb")
+				models.Count++
+				break outerloop
+			}
 			if n == Minmax.Max && i == 0 {
 				cmd.Pa(B_numbers, A_number)
 				fmt.Println("Pa")
 				models.Count++
 				break outerloop
 			}
-			if IsinvSorted(B_numbers) && n == Minmax.Max && i == 0 {
-				cmd.Pa(B_numbers, A_number)
-				fmt.Println("Pa")
-				models.Count++
-				break outerloop
-			}
-			if n == Minmax.Max && i == 1 {
-				cmd.Sb(B_numbers)
-				fmt.Println("Sb")
-				models.Count++
-				break outerloop
-			}
-			if B_numbers.Size()%2 == 0 && n == Minmax.Max && i != 0 {
-				if n == Minmax.Max && i > B_numbers.Size()/2 {
-					cmd.Rrb(B_numbers)
-					fmt.Println("Rrb")
-					models.Count++
-					break outerloop
-				}
-				if n == Minmax.Max && i <= B_numbers.Size()/2 {
-					cmd.Rb(B_numbers)
-					fmt.Println("Rb")
-					models.Count++
-					break outerloop
-				}
 
+		}
+		if B_numbers.Size()%2 == 1 && !IsinvSorted(B_numbers) {
+			if n == Minmax.Max && i > B_numbers.Size()/2 && i != 0 {
+				cmd.Rrb(B_numbers)
+				fmt.Println("Rrb")
+				models.Count++
+				break outerloop
 			}
-			if B_numbers.Size()%2 == 1 && n == Minmax.Max && i != 0 {
-				if n == Minmax.Max && i > B_numbers.Size()/2 {
-					cmd.Rrb(B_numbers)
-					fmt.Println("Rrb")
-					models.Count++
-					break outerloop
-				}
-				if n == Minmax.Max && i <= B_numbers.Size()/2 {
-					cmd.Rb(B_numbers)
-					fmt.Println("Rb")
-					models.Count++
-					break outerloop
-				}
+			if n == Minmax.Max && i <= B_numbers.Size()/2 && i != 0 {
+				cmd.Rb(B_numbers)
+				fmt.Println("Rb")
+				models.Count++
+				break outerloop
 			}
-		} else {
 			if n == Minmax.Max && i == 0 {
 				cmd.Pa(B_numbers, A_number)
 				fmt.Println("Pa")
@@ -369,14 +361,16 @@ outerloop:
 				break outerloop
 			}
 		}
+		// } else {
+
+		// clear
+
+		// break outerloop
+
 	}
 	if !IsinvSorted(B_numbers) {
 		SwapB(A_number, B_numbers)
 	}
-
-	// if !IsSorted(A_number) {
-
-	// }
 }
 
 func SwapA(A_number *models.Stack, B_numbers *models.Stack) {
@@ -394,13 +388,38 @@ outerloop:
 			cmd.Sa(A_number)
 			fmt.Println("Sa")
 			models.Count++
+
 			break outerloop
 		}
-		if n == Minmax.Min && i > A_number.Size()/2 {
-			cmd.Rra(A_number)
-			fmt.Println("Rra")
-			models.Count++
-			break outerloop
+		if A_number.Size()%2 == 0 && !IsSorted(A_number) {
+
+			if n == Minmax.Min && i > A_number.Size()/2 {
+				cmd.Rra(A_number)
+				fmt.Println("Rra")
+				models.Count++
+				break outerloop
+			}
+			if n == Minmax.Min && i <= A_number.Size()/2 {
+				cmd.Ra(A_number)
+				fmt.Println("Ra")
+				models.Count++
+				break outerloop
+			}
+
+		}
+		if A_number.Size()%2 == 1 && !IsSorted(A_number) {
+			if n == Minmax.Min && i > A_number.Size()/2 {
+				cmd.Rra(A_number)
+				fmt.Println("Rra")
+				models.Count++
+				break outerloop
+			}
+			if n == Minmax.Min && i <= A_number.Size()/2 {
+				cmd.Ra(A_number)
+				fmt.Println("Ra")
+				models.Count++
+				break outerloop
+			}
 		}
 		// if n == Minmax.Min && i != A_number.Size()-1 {
 		// 	cmd.Rrb(A_number)
