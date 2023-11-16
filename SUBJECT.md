@@ -168,7 +168,6 @@ https://en.wikipedia.org/wiki/Sorting_algorithm
 ////////////////////////////////////////////////////////////////////////////////////
 
 
-### Fonction `trier_trois_nombres(pile_A, pile_B)`
 
 #### Il y a 5 cas possibles 
 
@@ -181,6 +180,7 @@ https://en.wikipedia.org/wiki/Sorting_algorithm
 ---
 ---
 
+### Fonction `trier_trois_nombres(pile_A, pile_B)`
         {si} pile_A[0] > pile_A[1] alors 
             # le premier es superieur au deuxieme (cas 1, cas 3, cas 4)
             {si} pile_A[1] > pile_A[2] alors
