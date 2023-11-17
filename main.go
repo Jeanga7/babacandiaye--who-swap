@@ -2,13 +2,13 @@ package main
 
 import (
 	"os"
-	"push/internals/cmd/pushswap"
+	psGrand "push/internals/cmd/pushswap/trier_grande_pile"
+	psPetit "push/internals/cmd/pushswap/trier_petit_pile"
 	"push/internals/models"
 	"push/internals/utils"
 	"strconv"
 	"strings"
 )
-
 func main() {
 	if len(os.Args) == 2 {
 		arg := os.Args[1]
@@ -43,7 +43,9 @@ func main() {
 
 		// Vérification du nombre d'entiers
 		if len(pileA) <= 5 {
-			pushswap.TrierPetitePile(&pileA, &pileB)
+			psPetit.TrierPetitePile(&pileA, &pileB)
+		} else if len(pileA) > 5 || len(pileA) <= 10 {
+			psGrand.TrierGrandePile(&pileA, &pileB)
 		} else {
 			utils.Throw("Nombre d'entiers incorrect" + utils.Log())
 		}

@@ -1,0 +1,34 @@
+Étape 1 : TrierPetitePile
+    Si pileA est déjà triée, on ne fais rien.
+    Si la longueur de pileA est inférieure ou égale à 3, on appelle TrierTroisNombres.
+    Sinon, on appelle RemonterPlusPetit, suivi de TrierCinqNombres pour trier.
+
+Étape 2 : TrierTroisNombres
+    selon l'odre de priorité:
+    s' il y a un nom
+    Vérifie et effectue des opérations de tri spécifiques en fonction du nombre d'éléments dans pileA (2 ou 3).
+
+Étape 3 : TrierCinqNombres
+
+    Si pileA est déjà triée, affiche les piles et retourne.
+    Itère pour remonter le plus petit élément et déplacer les éléments vers pileB.
+    Applique TrierTroisNombres à chaque itération.
+    Déplace les éléments de pileB vers pileA jusqu'à ce que pileB soit vide.
+    Applique à nouveau TrierTroisNombres pour garantir que pileA est triée.
+
+Étape 4 : EstTrie
+
+    Parcourt la pile pour vérifier si les éléments sont triés par ordre croissant.
+
+Étape 5 : RemonterPlusPetit
+
+    Trouve l'indice du plus petit élément dans pileA.
+    Détermine le nombre de mouvements nécessaires pour amener le plus petit élément au sommet.
+    Effectue les mouvements nécessaires en utilisant les commandes Ra ou Rra.
+
+Priorités :
+
+    Le code priorise le tri de trois éléments dans TrierTroisNombres en utilisant des opérations spécifiques basées sur différentes configurations (Cas 1 à 6).
+    Dans TrierCinqNombres, le code priorise la remontée du plus petit élément et le déplacement vers pileB avant d'appliquer le tri sur chaque sous-ensemble de trois éléments.
+    Les commandes de déplacement (cmd.Pb, cmd.Pa) sont utilisées pour déplacer des éléments entre pileA et pileB.
+    Les commandes de rotation (cmd.Ra, cmd.Rra) sont utilisées pour faire pivoter les éléments dans pileA.

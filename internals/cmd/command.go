@@ -27,7 +27,6 @@ func Sb(a *models.Stack) {
 		*a = res
 	}
 }
-// ////////////////////
 func Ra(a *models.Stack) {
 	if len(*a) > 1 {
 		res := append([]interface{}{(*a)[1]}, (*a)[2:]...)
