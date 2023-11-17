@@ -4,72 +4,77 @@ import (
 	"push/internals/models"
 )
 
-func Pa(b *models.Stack, a *models.Stack) (models.Stack, models.Stack) {
+func Pa(b *models.Stack, a *models.Stack) {
 	x := b.Unshift()
 	a.Shift(x)
-	return *a, *b
+	// return *a, *b
 }
-func Pb(a *models.Stack, b *models.Stack) (models.Stack, models.Stack) {
+func Pb(a *models.Stack, b *models.Stack) {
 	x := a.Unshift()
 	b.Shift(x)
-	return *a, *b
+	// return *a, *b
 }
-func Sa(a []interface{}) []interface{} {
-	if len(a) > 1 {
-		res := append([]interface{}{a[1]}, a[0])
-		res = append(res, a[2:]...)
-		return res
+
+func Sa(a *models.Stack) {
+	if len(*a) > 1 {
+		res := append([]interface{}{(*a)[1]}, (*a)[0])
+		res = append(res, (*a)[2:]...)
+		*a = res
 	}
-	return a
 }
-func Sb(a []interface{}) []interface{} {
-	if len(a) > 1 {
-		res := append([]interface{}{a[1]}, a[0])
-		res = append(res, a[2:]...)
-		return res
+
+func Sb(a *models.Stack) {
+	if len(*a) > 1 {
+		res := append([]interface{}{(*a)[1]}, (*a)[0])
+		res = append(res, (*a)[2:]...)
+		*a = res
 	}
-	return a
+}
+
+func Ss(a *models.Stack, b *models.Stack) {
+	Sa(a)
+	Sb(b)
 }
 
 // ////////////////////
-func Ra(a []interface{}) []interface{} {
-	if len(a) > 1 {
-		res := append([]interface{}{a[1]}, a[2:]...)
-		res = append(res, a[0])
-		return res
+func Ra(a *models.Stack) {
+	if len(*a) > 1 {
+		res := append([]interface{}{(*a)[1]}, (*a)[2:]...)
+		res = append(res, (*a)[0])
+		*a = res
 	}
-	return a
 }
-func Rb(a []interface{}) []interface{} {
-	if len(a) > 1 {
-		res := append([]interface{}{a[1]}, a[2:]...)
-		res = append(res, a[0])
-		return res
+func Rb(a *models.Stack) {
+	if len(*a) > 1 {
+		res := append([]interface{}{(*a)[1]}, (*a)[2:]...)
+		res = append(res, (*a)[0])
+		*a = res
 	}
-	return a
 }
-func Ss(a []interface{}, b []interface{}) ([]interface{}, []interface{}) {
-	return Sa(a), Sb(b)
+
+//	func Ss(a *models.Stack, b *models.Stack) {
+//		Sa(a)
+//		Sb(b)
+//	}
+func Rr(a *models.Stack, b *models.Stack) {
+	Ra(a)
+	Rb(b)
 }
-func Rr(a []interface{}, b []interface{}) ([]interface{}, []interface{}) {
-	return Ra(a), Rb(b)
-}
-func Rra(a []interface{}) []interface{} {
-	if len(a) > 1 {
-		res := append([]interface{}{a[len(a)-1]}, a[:len(a)-1]...)
+func Rra(a *models.Stack) {
+	if len(*a) > 1 {
+		res := append([]interface{}{(*a)[len(*a)-1]}, (*a)[:len(*a)-1]...)
 		// res = append(res, a[0])
-		return res
+		*a = res
 	}
-	return a
 }
-func Rrb(a []interface{}) []interface{} {
-	if len(a) > 1 {
-		res := append([]interface{}{a[len(a)-1]}, a[:len(a)-1]...)
+func Rrb(a *models.Stack) {
+	if len(*a) > 1 {
+		res := append([]interface{}{(*a)[len(*a)-1]}, (*a)[:len(*a)-1]...)
 		// res = append(res, a[0])
-		return res
+		*a = res
 	}
-	return a
 }
-func Rrr(a []interface{}, b []interface{}) ([]interface{}, []interface{}) {
-	return Rra(a), Rrb(b)
+func Rrr(a *models.Stack, b *models.Stack) {
+	Rra(a)
+	Rrb(b)
 }
