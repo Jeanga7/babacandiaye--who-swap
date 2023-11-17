@@ -3,14 +3,14 @@ package trierpetitpile
 import (
 	"fmt"
 	"push/internals/models"
+	"push/internals/utils"
 )
-var count int
 /*________________________________________________The function "TrierPetitePile" sorts two stacks 
                                                    of numbers by using other helper functions. */
 func TrierPetitePile(pileA, pileB *models.Stack) {
 	fmt.Println("État initial:", *pileA, *pileB)
 
-	if EstTrie(pileA) {
+	if utils.EstTrie(pileA, pileB) {
 		fmt.Println("Déjà triés :", *pileA, *pileB)
 		return
 	}
@@ -22,5 +22,4 @@ func TrierPetitePile(pileA, pileB *models.Stack) {
 	}
 
 	fmt.Println("État final:", *pileA, *pileB)
-	fmt.Printf("vous avez fait %v de moves\n", count)
 }

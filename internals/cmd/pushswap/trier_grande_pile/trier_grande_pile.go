@@ -4,6 +4,7 @@ import (
 	"fmt"
 	psPetit "push/internals/cmd/pushswap/trier_petit_pile"
 	"push/internals/models"
+	"push/internals/utils"
 )
 
 var count int
@@ -11,7 +12,7 @@ var count int
 func TrierGrandePile(pileA, pileB *models.Stack) {
 	fmt.Println("État initial:", pileA)
 
-	if psPetit.EstTrie(pileA) {
+	if utils.EstTrie(pileA, pileB) {
 		fmt.Println("Déjà triés :", *pileA)
 		return // Return the count here
 	}
@@ -19,7 +20,7 @@ func TrierGrandePile(pileA, pileB *models.Stack) {
 	if len(*pileA) == 6 {
 		TrierSixNombres(pileA, pileB)
 	} else {
-		psPetit.RemonterPlusPetit(pileA)
+		utils.RemonterPlusPetit(pileA, pileB)
 		psPetit.TrierCinqNombres(pileA, &models.Stack{})
 		TrierGrandePile(pileA, pileB)
 	}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	psGrand "push/internals/cmd/pushswap/trier_grande_pile"
 	psPetit "push/internals/cmd/pushswap/trier_petit_pile"
@@ -9,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 )
+
 func main() {
 	if len(os.Args) == 2 {
 		arg := os.Args[1]
@@ -48,8 +50,15 @@ func main() {
 			psGrand.TrierGrandePile(&pileA, &pileB)
 		} else {
 			utils.Throw("Nombre d'entiers incorrect" + utils.Log())
+			return
 		}
 	} else {
 		utils.Throw("Besoin d'un argument" + utils.Log())
+		return
 	}
+	fmt.Println("    ///////////////////////////////////////////")
+	fmt.Println("   ///                                     ///")
+	fmt.Printf("   /// NOMBRE TOTAL DE MOUVEMENTS: %v\n///", utils.Count)
+	fmt.Println(" ///                                     ///")
+	fmt.Println("///////////////////////////////////////////")
 }

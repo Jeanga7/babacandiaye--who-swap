@@ -5,24 +5,25 @@ import (
 	"push/internals/cmd"
 	psPetit "push/internals/cmd/pushswap/trier_petit_pile"
 	"push/internals/models"
+	"push/internals/utils"
 )
 
 func TrierSixNombres(pileA, pileB *models.Stack) {
 	iterations := len(*pileA) - 3
 
-	if psPetit.EstTrie(pileA) {
-		fmt.Println("Déjà triés :", pileA)
+	if utils.EstTrie(pileA, pileB) {
+		fmt.Println("Déjà triés 6:", pileA)
 		return
 	}
 
 	for i := 0; i < iterations; i++ {
-		psPetit.RemonterPlusPetit(pileA)
-		if !psPetit.EstTrie(pileA) {
+		utils.RemonterPlusPetit(pileA, pileB)
+		if !utils.EstTrie(pileA, pileB) {
 			cmd.Pb(pileA, pileB)
-			count++
-			fmt.Println("Après pb:", *pileA, *pileB)
+			utils.CompterMoves()
+			fmt.Println("Après pb 6:", *pileA, *pileB)
 		} else {
-			fmt.Println("Déjà triés avant pb :", *pileA, *pileB)
+			fmt.Println("Déjà triés avant pb 6:", *pileA, *pileB)
 		}
 		psPetit.TrierCinqNombres(pileA, pileB)
 	}
@@ -31,8 +32,8 @@ func TrierSixNombres(pileA, pileB *models.Stack) {
 
 	for len(*pileB) > 0 {
 		cmd.Pa(pileB, pileA)
-		count++
-		fmt.Println("Après pa:", *pileA, *pileB)
+		utils.CompterMoves()
+		fmt.Println("Après pa 6:", *pileA, *pileB)
 		psPetit.TrierCinqNombres(pileA, pileB)
 	}
 }
