@@ -1,5 +1,5 @@
-##  push-swap
 
+##  push-swap
 ### Objectives
 
 Push-Swap is a very simple project that uses a Non-Comparative Sorting Algorithm. You have at your disposal a list of `int` values, two stacks (`a` and `b`) and a set of instructions.
@@ -168,19 +168,19 @@ https://en.wikipedia.org/wiki/Sorting_algorithm
 ////////////////////////////////////////////////////////////////////////////////////
 
 
+### Fonction `trier_trois_nombres(pile_A, pile_B)`
 
 #### Il y a 5 cas possibles 
 
 ---
-|         | cas 1#   | cas 2# 3 | cas 3# 3 | cas 4# 1 | cas 5# 2 |
-|--------:|:--------:|:--------:|:--------:|:--------:|:--------:|
-|         |    2     |    2     |    3     |    3     |    1     |
-|         |    1     |    3     |    1     |    2     |    3     |
-|         |    3     |    1     |    2     |    1     |    2     |
+|      | cas 1# | cas 2# 3 | cas 3# 3 | cas 4# 1 | cas 5# 2 |
+| ---: | :----: | :------: | :------: | :------: | :------: |
+|      |   2    |    2     |    3     |    3     |    1     |
+|      |   1    |    3     |    1     |    2     |    3     |
+|      |   3    |    1     |    2     |    1     |    2     |
 ---
 ---
 
-### Fonction `trier_trois_nombres(pile_A, pile_B)`
         {si} pile_A[0] > pile_A[1] alors 
             # le premier es superieur au deuxieme (cas 1, cas 3, cas 4)
             {si} pile_A[1] > pile_A[2] alors
@@ -223,12 +223,12 @@ https://en.wikipedia.org/wiki/Sorting_algorithm
         appeller `trier_trois_nombres(pile_A, pile_B)`
    
 ### fonction trier_petite_pile(pile_A, pile_B)
-    si taille(pile_A) = 3 alors
-        trier_trois_nombres(pile_A)
-    sinon
-        trier_cinq_nombres(pile_A, pile_B)
-    fin si
-fin fonction
+        si taille(pile_A) = 3 alors
+            trier_trois_nombres(pile_A)
+        sinon
+            trier_cinq_nombres(pile_A, pile_B)
+        fin si
+    fin fonction
 
 <!-- pour trier les grandes piles  -->
 

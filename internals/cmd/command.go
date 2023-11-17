@@ -12,14 +12,7 @@ func Pb(a *models.Stack, b *models.Stack) (models.Stack, models.Stack) {
 	b.Shift(x)
 	return *a, *b
 }
-// func Sa(a []interface{}) []interface{} {
-// 	if len(a) > 1 {
-// 		res := append([]interface{}{a[1]}, a[0])
-// 		res = append(res, a[2:]...)
-// 		return res
-// 	}
-// 	return a
-// }
+
 func Sa(a *models.Stack) {
 	if len(*a) > 1 {
 		res := append([]interface{}{(*a)[1]}, (*a)[0])
@@ -49,10 +42,7 @@ func Rb(a *models.Stack) {
 		*a = res
 	}
 }
-//	func Ss(a *models.Stack, b *models.Stack) {
-//		Sa(a)
-//		Sb(b)
-//	}
+
 func Rr(a *models.Stack, b *models.Stack) {
 	Ra(a)
 	Rb(b)

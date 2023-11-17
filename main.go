@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"push/internals/cmd/pushswap"
 	"push/internals/models"
@@ -13,37 +12,42 @@ import (
 func main() {
 	if len(os.Args) == 2 {
 		arg := os.Args[1]
-		var A_number *models.Stack = &models.Stack{}
-		var B_number *models.Stack = &models.Stack{}
-		for _, ch := range arg {
-			if strings.Contains(arg, " ") {
+		var pileA models.Stack
+		var pileB models.Stack
+
+		// Validation de l'argument
+		if strings.Contains(arg, " ") {
+			for _, ch := range arg {
 				if (ch >= '0' && ch <= '9') || ch == 32 {
 					continue
 				} else {
-					fmt.Println("not a valid argument")
+					utils.Throw("Argument non valide" + utils.Log())
 					return
 				}
-			} else if  !strings.Contains(arg, " ") && (ch >= '0' && ch <= '9') {
-				continue
-			} else {
-				fmt.Println("not a valid argument")
-				return
 			}
+		} else {
+			utils.Throw("Argument non valide" + utils.Log())
+			return
 		}
-		entier := strings.Split(arg, " ")
-		for _, v := range entier {
-			n, err := strconv.Atoi(string(v))
+
+		// Conversion de l'argument en entiers
+		entiers := strings.Split(arg, " ")
+		for _, v := range entiers {
+			n, err := strconv.Atoi(v)
 			if err != nil {
-				fmt.Println("Error")
+				utils.Throw("Erreur de conversion en entier" + utils.Log())
 				return
 			}
-			*A_number = append(*A_number, n)
+			pileA = append(pileA, n)
 		}
-		if len(*A_number) <= 3 {
-			pushswap.TrierTroisNombres(A_number, B_number)
+
+		// Vérification du nombre d'entiers
+		if len(pileA) <= 5 {
+			pushswap.TrierPetitePile(&pileA, &pileB)
+		} else {
+			utils.Throw("Nombre d'entiers incorrect" + utils.Log())
 		}
 	} else {
-		utils.Throw("Need an Argument" + utils.Log())
-
+		utils.Throw("Besoin d'un argument" + utils.Log())
 	}
 }
