@@ -59,19 +59,19 @@ func TrierTroisNombres(pileA, pileB *models.Stack) {
 		}
 	}
 
-	if len(*pileA) == 4 {
-		if (*pileA)[1].(int) > (*pileA)[2].(int) {
-			minIndex := utils.MinIndex(*pileA)
-			if (*pileA)[minIndex].(int) > (*pileA)[2].(int) && (*pileA)[3].(int) < (*pileA)[2].(int) {
-				cmd.Pb(pileA, pileB)
-				utils.CompterMoves()
-				fmt.Println("Après pb 3:", *pileA, *pileB)
-				return
-			} else if (*pileA)[3].(int) < (*pileA)[2].(int) {
-				utils.RemonterPlusPetit(pileA, pileB)
-				return
-			}
-		}
-	}
+	// if len(*pileA) == 4 {
+	// 	if (*pileA)[1].(int) > (*pileA)[2].(int) {
+	// 		minIndex := utils.MinIndex(*pileA)
+	// 		if (*pileA)[minIndex].(int) > (*pileA)[2].(int) && (*pileA)[3].(int) < (*pileA)[2].(int) {
+	// 			cmd.Pb(pileA, pileB)
+	// 			utils.CompterMoves()
+	// 			fmt.Println("Après pb 3:", *pileA, *pileB)
+	// 			return
+	// 		} else if (*pileA)[3].(int) < (*pileA)[2].(int) {
+	// 			utils.RemonterPlusPetit(pileA, pileB)
+	// 			return
+	// 		}
+	// 	}
+	// }
 	utils.EstTrie(pileA, pileB)
 }

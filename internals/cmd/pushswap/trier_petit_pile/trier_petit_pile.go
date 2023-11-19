@@ -7,6 +7,8 @@ import (
 )
 /*________________________________________________The function "TrierPetitePile" sorts two stacks 
                                                    of numbers by using other helper functions. */
+
+												   
 func TrierPetitePile(pileA, pileB *models.Stack) {
 	fmt.Println("État initial:", *pileA, *pileB)
 

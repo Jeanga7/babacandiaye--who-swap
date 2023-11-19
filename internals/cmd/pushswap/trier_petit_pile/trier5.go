@@ -40,14 +40,9 @@ func TrierCinqNombres(pileA, pileB *models.Stack) {
 			fmt.Println("Après rra 5:", *pileA, *pileB)
 			break
 		}
+		for i := 0; i < iterations; i++ {
 		utils.RemonterPlusPetit(pileA, pileB)
-		if !utils.EstTrie(pileA, pileB) {
-			cmd.Pb(pileA, pileB)
-			utils.CompterMoves()
-			fmt.Println("Après pb 5:", *pileA, *pileB)
-		} else {
-			fmt.Println("Déjà triés avant pb 5:", *pileA, *pileB)
-		}
+	}
 		TrierTroisNombres(pileA, pileB)
 	}
 

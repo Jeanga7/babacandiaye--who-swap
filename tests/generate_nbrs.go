@@ -40,7 +40,7 @@ func generateRandomLine(length int) string {
 	var lineBuilder strings.Builder
 
 	for j := 0; j < length; j++ {
-		lineBuilder.WriteString(strconv.Itoa(rand.Intn(5) + 1))
+		lineBuilder.WriteString(strconv.Itoa(rand.Intn(100) + 1))
 		if j < length-1 { // Ajouter un espace après chaque nombre, sauf après le dernier
 			lineBuilder.WriteString(" ")
 		}

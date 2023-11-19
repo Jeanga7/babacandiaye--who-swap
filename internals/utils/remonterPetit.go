@@ -38,15 +38,32 @@ func RemonterPlusPetit(pileA, pileB *models.Stack) {
 		moves = len(*pileA) - minIndex
 	}
 
+	if minIndex < pivot && !EstTrie(pileA, pileB) {
 	for i := 0; i < moves; i++ {
-		if minIndex < pivot && !EstTrie(pileA, pileB) {
 			cmd.Ra(pileA)
 			CompterMoves()
 			fmt.Println("Après ra 5RP:", *pileA)
-		} else {
+		} 
+	} else if minIndex >= pivot && !EstTrie(pileA, pileB){
+		if pileA.Size()%2 == 0 {
+	for i := 0; i < moves; i++ {
 			cmd.Rra(pileA)
 			CompterMoves()
 			fmt.Println("Après rra 5RP:", *pileA)
 		}
+	}else{
+		for i := 0; i < moves+1; i++ {
+			cmd.Rra(pileA)
+			CompterMoves()
+			fmt.Println("Après rra 5RP:", *pileA)
+		}
+		}
+	}
+	if minIndex == 0 && !EstTrie(pileA, pileB) {
+		cmd.Pb(pileA, pileB)
+		CompterMoves()
+		fmt.Println("Après pb 5:", *pileA, *pileB)
+	} else {
+		fmt.Println("Déjà triés avant pb 5:", *pileA, *pileB)
 	}
 }

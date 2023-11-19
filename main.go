@@ -58,7 +58,7 @@ func main() {
 	}
 	fmt.Println("    ///////////////////////////////////////////")
 	fmt.Println("   ///                                     ///")
-	fmt.Printf("   /// NOMBRE TOTAL DE MOUVEMENTS: %v\n///", utils.Count)
+	fmt.Printf("  ///  NOMBRE TOTAL DE MOUVEMENTS: %v ///\n", utils.Count)
 	fmt.Println(" ///                                     ///")
 	fmt.Println("///////////////////////////////////////////")
 }
