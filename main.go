@@ -21,7 +21,12 @@ func main() {
 		for _, v := range entier {
 			n, err := strconv.Atoi(string(v))
 			if err != nil {
-				fmt.Println("Error")
+				fmt.Println("\033[91m"+"Error"+"\033[0m"+": Not a Number")
+				return
+			}
+			err = CheckDuplication(n, A_number)
+			if err != nil {
+				fmt.Println("\033[91m"+"Error"+"\033[0m"+": Duplicate Number")
 				return
 			}
 			en = append(en, n)
@@ -51,7 +56,7 @@ func IsValidArg(arg string) {
 			}
 		}
 	} else {
-		fmt.Println("not a valid argument")
+		fmt.Println("\033[91m"+"Error"+"\033[0m"+"not a valid argument")
 		return
 	}
 }
@@ -59,18 +64,29 @@ func IsValidArg(arg string) {
 func Traitement(A_number models.Stack,B_number models.Stack,en []int){
 	var P utils.Positions
 	if	utils.IsSorted(&A_number) {
-		fmt.Println("pile deja trier")
+		fmt.Println( "\033[91m"+"Error"+"\033[0m"+": Sorted Stack")
 		return
 	}
-	low := utils.Check_low(en)
+	// CheckDuplication(n, pileA)
+	// low := utils.Check_low(en)
 	fmt.Println(A_number...)
-	utils.CheckPos(&A_number, low, &P)
+	// utils.CheckPos(&A_number, low, &P)
 	fmt.Println(P)
 	fmt.Println("///////////////////////////////////////////////////////////////////////////")
 	utils.Check_lower(&A_number)
-	algorithm.Swapping(&A_number, &B_number, low)
+	// algorithm.Swapping(&A_number, &B_number, low)
 	// utils.Swapping(&A_number, &B_number, low)
+	algorithm.Swapper(&A_number, &B_number)
 	fmt.Println("this is the new positions")
 	fmt.Println(A_number...)
-	fmt.Println(models.Count)
+	fmt.Println("move :",models.Count)
+}
+
+func CheckDuplication(nombre int, pile models.Stack) error {
+	for _, n := range pile {
+		if n == nombre {
+			return fmt.Errorf("error : Le nombre %v est déjà présent dans la pile.", nombre)
+		}
+	}
+	return nil
 }
