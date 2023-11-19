@@ -7,18 +7,17 @@ import (
 	"push/internals/utils"
 )
 
-var count int
 
 func TrierGrandePile(pileA, pileB *models.Stack) {
 	fmt.Println("État initial:", pileA)
 
 	if utils.EstTrie(pileA, pileB) {
 		fmt.Println("Déjà triés :", *pileA)
-		return // Return the count here
+		return 
 	}
 
-	if len(*pileA) == 6 {
-		TrierSixNombres(pileA, pileB)
+	if len(*pileA) <= 10 {
+		TrierDixNombres(pileA, pileB)
 	} else {
 		utils.RemonterPlusPetit(pileA, pileB)
 		psPetit.TrierCinqNombres(pileA, &models.Stack{})
@@ -26,5 +25,4 @@ func TrierGrandePile(pileA, pileB *models.Stack) {
 	}
 
 	fmt.Println("État final:", *pileA)
-	fmt.Printf("vous avez fait %v de moves\n", count)
 }

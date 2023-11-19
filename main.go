@@ -40,6 +40,10 @@ func main() {
 				utils.Throw("Erreur de conversion en entier" + utils.Log())
 				return
 			}
+			if utils.CheckDuplicate(&pileA, n) {
+				utils.Throw("Duplication détectée" + utils.Log())
+				return
+			}
 			pileA = append(pileA, n)
 		}
 

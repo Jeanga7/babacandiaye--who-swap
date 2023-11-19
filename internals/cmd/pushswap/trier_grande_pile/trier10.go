@@ -8,7 +8,7 @@ import (
 	"push/internals/utils"
 )
 
-func TrierSixNombres(pileA, pileB *models.Stack) {
+func TrierDixNombres(pileA, pileB *models.Stack) {
 	iterations := len(*pileA) - 3
 
 	if utils.EstTrie(pileA, pileB) {
