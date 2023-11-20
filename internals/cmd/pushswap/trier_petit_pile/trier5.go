@@ -29,15 +29,15 @@ func TrierCinqNombres(pileA, pileB *models.Stack) {
 		fmt.Println("La partie est triée:", estTriee)
 		if estTriee && maxIndex == 0 {
 			cmd.Ra(pileA)
-			utils.CompterMoves()
+			utils.CounterMoves()
 			fmt.Println("Après ra 5:", *pileA, *pileB)
 			break
 		}
 		
 		if estTriee && minIndex == 0 {
 			cmd.Rra(pileA)
-			utils.CompterMoves()
-			fmt.Println("Après rra 5:", *pileA, *pileB)
+			utils.CounterMoves()
+			fmt.Println("Apres rra 5:", *pileA, *pileB)
 			break
 		}
 		for i := 0; i < iterations; i++ {
@@ -50,7 +50,7 @@ func TrierCinqNombres(pileA, pileB *models.Stack) {
 
 	for len(*pileB) > 0 {
 		cmd.Pa(pileB, pileA)
-		utils.CompterMoves()
+		utils.CounterMoves()
 		fmt.Println("Après pa 5:", *pileA, *pileB)
 		TrierTroisNombres(pileA, pileB)
 	}

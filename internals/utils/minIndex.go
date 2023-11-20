@@ -1,6 +1,7 @@
 package utils
 
-import "push/internals/models"
+import ("push/internals/models"
+"math")
 
 //________________________________________________MinIndex returns the index of the minimum 
 //                                                element in the stack.
@@ -20,3 +21,22 @@ func MinIndex(slice models.Stack) int {
 
 	return minIndex
 }
+
+func SecondMinIndex(slice models.Stack, excludeIndex int) int {
+	if len(slice) == 0 {
+		return -1
+	}
+
+	secondMinIndex := -1
+	secondMinValue := math.MaxInt
+
+	for i, value := range slice {
+		if i != excludeIndex && value.(int) < secondMinValue {
+			secondMinIndex = i
+			secondMinValue = value.(int)
+		}
+	}
+
+	return secondMinIndex
+}
+

@@ -21,7 +21,7 @@ func TrierTroisNombres(pileA, pileB *models.Stack) {
 	if len(*pileA) == 2 {
 		if maxIndex == 0{
 			cmd.Sa(pileA)
-			utils.CompterMoves()
+			utils.CounterMoves()
 			fmt.Println("Après sa 3:", *pileA, *pileB)
 		} else {
 			utils.EstTrie(pileA, pileB)
@@ -32,29 +32,29 @@ func TrierTroisNombres(pileA, pileB *models.Stack) {
 	if len(*pileA) == 3 {
 		if maxIndex == 0 && minIndex == 2 {
 			cmd.Sa(pileA)
-			utils.CompterMoves()
+			utils.CounterMoves()
 			fmt.Println("Après sa 3 :", *pileA, *pileB)
 			cmd.Rra(pileA)
-			utils.CompterMoves()
+			utils.CounterMoves()
 			fmt.Println("Après rra 3 A:", *pileA, *pileB)
 		}else if maxIndex == 0 && minIndex == 1{
 			cmd.Ra(pileA)
-			utils.CompterMoves()
+			utils.CounterMoves()
 			fmt.Println("Après ra 3:", *pileA, *pileB)
 		} else if maxIndex == 1 && minIndex == 2{
 			cmd.Rra(pileA)
-			utils.CompterMoves()
+			utils.CounterMoves()
 			fmt.Println("Après rra 3:", *pileA, *pileB)
 		} else if maxIndex == 1 && minIndex == 0{
 			cmd.Sa(pileA)
-			utils.CompterMoves()
+			utils.CounterMoves()
 			fmt.Println("Après sa 3 :", *pileA, *pileB)
 			cmd.Ra(pileA)
-			utils.CompterMoves()
+			utils.CounterMoves()
 			fmt.Println("Après ra 3 A:", *pileA, *pileB)
 		} else if maxIndex == 2 && minIndex == 1{
 			cmd.Sa(pileA)
-			utils.CompterMoves()
+			utils.CounterMoves()
 			fmt.Println("Après sa 3:", *pileA, *pileB)
 		}
 	}

@@ -20,7 +20,7 @@ func TrierDixNombres(pileA, pileB *models.Stack) {
 		utils.RemonterPlusPetit(pileA, pileB)
 		if !utils.EstTrie(pileA, pileB) {
 			cmd.Pb(pileA, pileB)
-			utils.CompterMoves()
+			utils.CounterMoves()
 			fmt.Println("Après pb 6:", *pileA, *pileB)
 		} else {
 			fmt.Println("Déjà triés avant pb 6:", *pileA, *pileB)
@@ -32,7 +32,7 @@ func TrierDixNombres(pileA, pileB *models.Stack) {
 
 	for len(*pileB) > 0 {
 		cmd.Pa(pileB, pileA)
-		utils.CompterMoves()
+		utils.CounterMoves()
 		fmt.Println("Après pa 6:", *pileA, *pileB)
 		psPetit.TrierCinqNombres(pileA, pileB)
 	}
