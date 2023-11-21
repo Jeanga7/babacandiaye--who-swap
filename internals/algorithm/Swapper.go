@@ -144,9 +144,10 @@ outerloop:
 			}
 			// //_______________________________
 			// //				  traitement à 10
-			// if PileA.Size() <= 10 {
-			// 	fmt.Println("defal nank")
-			// }
+			if PileA.Size() <= 100 {
+				LesstenSorted(PileA, PileB, minA, maxA, low, i, n, pivot)
+				continue outerloop
+			}
 			// //_______________________________
 			// //				  traitement à 50
 			// if PileA.Size() <= 50 {
@@ -166,4 +167,3 @@ outerloop:
 		Swapper(PileA, PileB)
 	}
 }
-

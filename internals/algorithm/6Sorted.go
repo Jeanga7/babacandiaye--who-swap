@@ -23,7 +23,7 @@ func Less6Sorted(PileA *models.Stack, PileB *models.Stack, minA int, maxA int, l
 
 				models.Count++
 				return
-			} else if (n == l && i == 0) && PileB.Size() != 0 {
+			} else if (n == l && i == 0) {
 				// low à la pos[0]
 				cmd.Pb(PileA, PileB)
 				fmt.Println("Pb")

@@ -22,7 +22,7 @@ Si vous travaillez sur un projet Git avec plusieurs branches vous pouvez suivre 
 4. **Ajoutez les modifications pour le commit :**
    Ajoutez les fichiers modifiés à l'index en utilisant la commande :
    ```bash
-   git add nom_du_fichier_modifié
+   git add nom_du_fichier_modifiée.
    ```
 
    Vous pouvez également ajouter tous les fichiers modifiés en une seule fois avec :
