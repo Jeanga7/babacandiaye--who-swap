@@ -7,6 +7,7 @@ import (
 	"push/internals/models"
 	"runtime"
 	"sort"
+	"strings"
 )
 
 type Positions struct {
@@ -109,27 +110,30 @@ func CheckPos(a *models.Stack, low []int, pos *Positions) {
 }
 
 // this function has the role of swapping until having all the intergers sorted
-func Swapper(A_number *models.Stack, B_numbers *models.Stack, low []int) {
+func Swapper(A_number *models.Stack, B_numbers *models.Stack, low []int) string {
 	// var B_numbers models.Stack
+	var output strings.Builder
+
 	var Minmax MinMax
 	var P Positions
 	// fmt.Println(*A_number...)
 	if IsSorted(A_number) && B_numbers.Size() == 0 {
-		return
+		output.WriteString(fmt.Sprintf("%v\n", A_number))
+		return output.String()
 	}
-	for i, n := range *A_number {
-		var B_nb string
-		if i < B_numbers.Size() {
-			B_nb = fmt.Sprintf("%d", (*B_numbers)[i])
-		} else {
-			B_nb = ""
-		}
-		fmt.Printf("%d\t%s\n", n, B_nb)
-		if i == A_number.Size()-1 {
-			fmt.Println("=\t=")
-			fmt.Println("a\tb")
-		}
-	}
+	// for i, n := range *A_number {
+	// 	var B_nb string
+	// 	if i < B_numbers.Size() {
+	// 		B_nb = fmt.Sprintf("%d", (*B_numbers)[i])
+	// 	} else {
+	// 		B_nb = ""
+	// 	}
+	// 	fmt.Printf("%d\t%s\n", n, B_nb)
+	// 	if i == A_number.Size()-1 {
+	// 		fmt.Println("=\t=")
+	// 		fmt.Println("a\tb")
+	// 	}
+	// }
 outerloop:
 	for i, n := range *A_number {
 		CheckPos(A_number, low, &P)
@@ -269,19 +273,19 @@ outerloop:
 						fmt.Println("Sa")
 						fmt.Println("je vais MAMa")
 						models.Count++
-						for i, n := range *A_number {
-							var B_nb string
-							if i < B_numbers.Size() {
-								B_nb = fmt.Sprintf("%d", (*B_numbers)[i])
-							} else {
-								B_nb = ""
-							}
-							fmt.Printf("%d\t%s\n", n, B_nb)
-							if i == A_number.Size()-1 {
-								fmt.Println("=\t=")
-								fmt.Println("a\tb")
-							}
-						}
+						// for i, n := range *A_number {
+						// 	var B_nb string
+						// 	if i < B_numbers.Size() {
+						// 		B_nb = fmt.Sprintf("%d", (*B_numbers)[i])
+						// 	} else {
+						// 		B_nb = ""
+						// 	}
+						// 	fmt.Printf("%d\t%s\n", n, B_nb)
+						// 	if i == A_number.Size()-1 {
+						// 		fmt.Println("=\t=")
+						// 		fmt.Println("a\tb")
+						// 	}
+						// }
 
 					}
 				}
@@ -292,7 +296,8 @@ outerloop:
 			SwapB(A_number, B_numbers)
 		}
 	}
-
+	output.WriteString(fmt.Sprintf("%v", *A_number))
+	return output.String()
 }
 
 func SwapB(A_number *models.Stack, B_numbers *models.Stack) {
