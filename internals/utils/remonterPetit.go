@@ -24,6 +24,7 @@ func RemonterPlusPetit(pileA, pileB *models.Stack) {
 
 	if movesSecond < movesMin {
 		minIndex, secondMinIndex = secondMinIndex, minIndex
+		movesMin = movesSecond
 	}
 
 	pivot := len(*pileA) / 2
@@ -32,27 +33,35 @@ func RemonterPlusPetit(pileA, pileB *models.Stack) {
 		movesMin = len(*pileA) - minIndex
 	}
 
-	if minIndex == 1 && !EstTrie(pileA, pileB) {
+	if minIndex == 1 || secondMinIndex == 1 && !EstTrie(pileA, pileB) {
 		cmd.Sa(pileA)
 		CounterMoves()
 		fmt.Println("Apres sa 5RP:", *pileA)
 		CmdPb(pileA, pileB)
 		return
+
 	}
 
+	minIndex = MinIndex(*pileA)
+	secondMinIndex = SecondMinIndex(*pileA, minIndex)
 	if minIndex <= pivot && !EstTrie(pileA, pileB) {
 		for i := 0; i < movesMin; i++ {
 			minIndex = MinIndex(*pileA)
 			if minIndex == 1 && !EstTrie(pileA, pileB) && estTriee {
 				cmd.Sa(pileA)
 				CounterMoves()
-				fmt.Println("Apres sa 5RP:", *pileA)
+				fmt.Println("Apres sa 5RP k:", *pileA)
 				CmdPb(pileA, pileB)
 				return
 			} else {
-				cmd.Ra(pileA)
-				CounterMoves()
-				fmt.Println("Après ra 5RP :", *pileA)
+				minIndex = MinIndex(*pileA)
+				if minIndex == 0 || secondMinIndex == 0 {
+					CmdPb(pileA, pileB)
+				} else {
+					cmd.Ra(pileA)
+					CounterMoves()
+					fmt.Println("Apres ra 5RP:", *pileA)
+				}
 			}
 		}
 
@@ -60,18 +69,23 @@ func RemonterPlusPetit(pileA, pileB *models.Stack) {
 		return
 	}
 	if minIndex > pivot && !EstTrie(pileA, pileB) {
-		minIndex = MinIndex(*pileA)
 		for i := 0; i < movesMin; i++ {
+			minIndex = MinIndex(*pileA)
 			if minIndex == 1 && !EstTrie(pileA, pileB) && estTriee {
 				cmd.Sa(pileA)
 				CounterMoves()
-				fmt.Println("Apres sa 5RP:", *pileA)
+				fmt.Println("Apres sa 5RP f:", *pileA)
 				CmdPb(pileA, pileB)
 				return
 			} else {
-				cmd.Rra(pileA)
-				CounterMoves()
-				fmt.Println("Apres rra 5RP z:", *pileA)
+				minIndex = MinIndex(*pileA)
+				if minIndex == 0 || secondMinIndex == 0 {
+					CmdPb(pileA, pileB)
+				} else {
+					cmd.Rra(pileA)
+					CounterMoves()
+					fmt.Println("Apres rra 5RP z:", *pileA)
+				}
 			}
 		}
 		CmdPb(pileA, pileB)
@@ -84,11 +98,11 @@ func RemonterPlusPetit(pileA, pileB *models.Stack) {
 func CmdPb(pileA *models.Stack, pileB *models.Stack) {
 	minIndex := MinIndex(*pileA)
 	secondMinIndex := SecondMinIndex(*pileA, minIndex)
-	if (minIndex == 0 || secondMinIndex == 0)&& !EstTrie(pileA, pileB) {
+	if (minIndex == 0 || secondMinIndex == 0) && !EstTrie(pileA, pileB) && pileA.Size() > 3 {
 		cmd.Pb(pileA, pileB)
 		CounterMoves()
-		fmt.Println("Apres pb 5 :", *pileA, *pileB)
+		fmt.Println("Apres pb RP :", *pileA, *pileB)
 	} else {
-		fmt.Println("Déjà tries before pb 5:", *pileA, *pileB)
+		fmt.Println("Déjà tries before pb RP:", *pileA, *pileB)
 	}
 }

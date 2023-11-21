@@ -46,6 +46,12 @@ func Rr(a *models.Stack, b *models.Stack) {
 	Ra(a)
 	Rb(b)
 }
+
+func Ss(a *models.Stack, b *models.Stack) {
+	Sa(a)
+	Sb(b)
+}
+
 func Rra(a *models.Stack) {
 	if len(*a) > 1 {
 		res := append([]interface{}{(*a)[len(*a)-1]}, (*a)[:len(*a)-1]...)

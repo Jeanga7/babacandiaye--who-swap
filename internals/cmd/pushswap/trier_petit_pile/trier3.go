@@ -55,7 +55,7 @@ func TrierTroisNombres(pileA, pileB *models.Stack) {
 		} else if maxIndex == 2 && minIndex == 1{
 			cmd.Sa(pileA)
 			utils.CounterMoves()
-			fmt.Println("Après sa 3:", *pileA, *pileB)
+			fmt.Println("Après sa 3 :", *pileA, *pileB)
 		}
 	}
 	utils.EstTrie(pileA, pileB)

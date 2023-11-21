@@ -37,14 +37,20 @@ func main() {
 }
 
 func generateRandomLine(length int) string {
-	var lineBuilder strings.Builder
-
-	for j := 0; j < length; j++ {
-		lineBuilder.WriteString(strconv.Itoa(rand.Intn(100) + 1))
-		if j < length-1 { // Ajouter un espace après chaque nombre, sauf après le dernier
-			lineBuilder.WriteString(" ")
-		}
+	if length > 200 {
+		fmt.Println("Error: length should be less than or equal to 200.")
+		return ""
 	}
-
-	return lineBuilder.String()
-}
+ 
+	rand.Seed(time.Now().UnixNano())
+	numbers := rand.Perm(200)[:length]
+ 
+	var lineBuilder strings.Builder
+ 
+	for _, number := range numbers {
+		lineBuilder.WriteString(strconv.Itoa(number + 1))
+		lineBuilder.WriteString(" ")
+	}
+ 
+	return strings.TrimSpace(lineBuilder.String())
+ }
