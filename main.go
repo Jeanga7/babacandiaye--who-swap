@@ -58,7 +58,7 @@ func main() {
 		// output.String()
 		// fmt.Println(output.String())
 		// fmt.Println("this is the new positions")
-		fmt.Println(A_number...)
+		// fmt.Println(A_number...)
 		// fmt.Println(models.Count)
 
 	} else {

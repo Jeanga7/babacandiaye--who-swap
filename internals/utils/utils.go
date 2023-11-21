@@ -176,7 +176,7 @@ outerloop:
 			if n == l && i == 0 && A_number.Size() >= B_numbers.Size() {
 				cmd.Pb(A_number, B_numbers)
 				fmt.Println("pb")
-				fmt.Println("test")
+				// fmt.Println("test")
 				// fmt.Println(*A_number...)
 				models.Count++
 				if !IsinvSorted(B_numbers) {
@@ -268,7 +268,7 @@ outerloop:
 				models.Count++
 				if !IsSorted(A_number) {
 					if (*A_number)[1].(int) == Minmax.Min {
-						fmt.Println("je suis min", Minmax.Min)
+						// fmt.Println("je suis min", Minmax.Min)
 						// fmt.Println("A_number is this")
 						cmd.Sa(A_number)
 						fmt.Println("sa")
@@ -376,7 +376,7 @@ outerloop:
 
 	}
 	if !IsinvSorted(B_numbers) {
-		fmt.Println("je fais swap b")
+		// fmt.Println("je fais swap b")
 		SwapB(A_number, B_numbers)
 	}
 }

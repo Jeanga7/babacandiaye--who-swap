@@ -48,7 +48,7 @@ func main() {
 			func_todo = append(func_todo, scanner.Text())
 		}
 		// fmt.Println(func_todo)
-		fmt.Println(func_todo)
+		// fmt.Println(func_todo)
 		fmt.Println(Apllication(func_todo, &A_number, &B_number))
 	} else {
 		return
@@ -98,7 +98,7 @@ func Apllication(instructions []string, A *models.Stack, B *models.Stack) string
 		}
 		// fmt.Println("Je test")
 	}
-	fmt.Println(*A...)
+	// fmt.Println(*A...)
 	// fmt.Println(*B...)
 	if utils.IsSorted(A) && B.Size() == 0 {
 		return "OK"
