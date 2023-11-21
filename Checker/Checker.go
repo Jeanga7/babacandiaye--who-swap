@@ -48,6 +48,7 @@ func main() {
 			func_todo = append(func_todo, scanner.Text())
 		}
 		// fmt.Println(func_todo)
+		fmt.Println(func_todo)
 		fmt.Println(Apllication(func_todo, &A_number, &B_number))
 	} else {
 		return
@@ -56,17 +57,22 @@ func main() {
 }
 
 func Apllication(instructions []string, A *models.Stack, B *models.Stack) string {
+	// outloop:
 	for _, v := range instructions {
 		if v == "rra" {
 			cmd.Rra(A)
+			// break outloop
 		}
 		if v == "ra" {
 			cmd.Ra(A)
+			// break outloop
 		}
 		if v == "sa" {
+			// fmt.Println("sa")
 			cmd.Sa(A)
 		}
 		if v == "pa" {
+			// fmt.Println("sa")
 			cmd.Pa(B, A)
 		}
 		if v == "rrb" {
@@ -90,7 +96,10 @@ func Apllication(instructions []string, A *models.Stack, B *models.Stack) string
 		if v == "rrr" {
 			cmd.Rrr(A, B)
 		}
+		// fmt.Println("Je test")
 	}
+	fmt.Println(*A...)
+	// fmt.Println(*B...)
 	if utils.IsSorted(A) && B.Size() == 0 {
 		return "OK"
 	} else {

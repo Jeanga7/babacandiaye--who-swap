@@ -54,7 +54,7 @@ func main() {
 		// fmt.Println("///////////////////////////////////////////////////////////////////////////")
 		// utils.Check_lower(&A_number)
 
-		fmt.Println(utils.Swapper(&A_number, &B_number, low))
+		utils.Swapper(&A_number, &B_number, low)
 		// output.String()
 		// fmt.Println(output.String())
 		// fmt.Println("this is the new positions")
