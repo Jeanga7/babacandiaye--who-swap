@@ -31,7 +31,7 @@ func main() {
 			utils.Throw("Argument non valide" + utils.Log())
 			return
 		}
-
+	
 		// Conversion de l'argument en entiers
 		entiers := strings.Split(arg, " ")
 		for _, v := range entiers {
@@ -62,7 +62,7 @@ func main() {
 	}
 	fmt.Println("    ///////////////////////////////////////////")
 	fmt.Println("   ///                                     ///")
-	fmt.Printf("  ///  NOMBRE TOTAL DE MOUVEMENTS: %v ///\n", utils.Count)
+	fmt.Printf("  ///  NOMBRE TOTAL DE MOUVEMENTS: %v///\n", utils.Count)
 	fmt.Println(" ///                                     ///")
 	fmt.Println("///////////////////////////////////////////")
 }

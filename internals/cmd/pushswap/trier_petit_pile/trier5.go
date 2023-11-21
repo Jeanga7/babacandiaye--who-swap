@@ -27,14 +27,14 @@ func TrierCinqNombres(pileA, pileB *models.Stack) {
 	for i := 0; i < iterations; i++ {
 		estTriee := utils.EstPartieTriee(pileA, 1, len(*pileA)-1)
 		fmt.Println("La partie est triée:", estTriee)
-		if estTriee && maxIndex == 0 {
+		if estTriee && maxIndex == 0 && pileA.Size()>3{
 			cmd.Ra(pileA)
 			utils.CounterMoves()
 			fmt.Println("Après ra 5:", *pileA, *pileB)
 			break
 		}
 		
-		if estTriee && minIndex == 0 {
+		if estTriee && minIndex == 0 && pileA.Size()>3 {
 			cmd.Rra(pileA)
 			utils.CounterMoves()
 			fmt.Println("Apres rra 5:", *pileA, *pileB)
