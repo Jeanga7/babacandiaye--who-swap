@@ -8,8 +8,7 @@ import (
 
 /*
 _______________________________________________The function "RemonterPlusPetit" is used to move
-
-	the smallest element in a stack to the top.*/
+                                                the smallest element in a stack to the top.*/
 
 func RemonterPlusPetit(pileA, pileB *models.Stack) {
 	estTriee := EstPartieTriee(pileA, 1, len(*pileA)-1)
@@ -18,7 +17,9 @@ func RemonterPlusPetit(pileA, pileB *models.Stack) {
 	}
 
 	minIndex := MinIndex(*pileA)
+	minValue := (*pileA)[minIndex].(int)
 	secondMinIndex := SecondMinIndex(*pileA, minIndex)
+	secondMinValue := (*pileA)[secondMinIndex].(int)
 	movesMin := minIndex
 	movesSecond := secondMinIndex
 
@@ -33,69 +34,49 @@ func RemonterPlusPetit(pileA, pileB *models.Stack) {
 		movesMin = len(*pileA) - minIndex
 	}
 
-	if minIndex == 1 || secondMinIndex == 1 && !EstTrie(pileA, pileB) {
+	if (minIndex == 1 || secondMinIndex == 1) && !EstTrie(pileA, pileB) {
 		cmd.Sa(pileA)
 		CounterMoves()
-		fmt.Println("Apres sa 5RP:", *pileA)
+		fmt.Println("Apres sa 5RP x:", *pileA)
 		CmdPb(pileA, pileB)
 		return
-
 	}
 
-	minIndex = MinIndex(*pileA)
-	secondMinIndex = SecondMinIndex(*pileA, minIndex)
-	if minIndex <= pivot && !EstTrie(pileA, pileB) {
-		for i := 0; i < movesMin; i++ {
-			minIndex = MinIndex(*pileA)
-			if minIndex == 1 && !EstTrie(pileA, pileB) && estTriee {
-				cmd.Sa(pileA)
-				CounterMoves()
-				fmt.Println("Apres sa 5RP k:", *pileA)
-				CmdPb(pileA, pileB)
-				return
-			} else {
-				minIndex = MinIndex(*pileA)
-				if minIndex == 0 || secondMinIndex == 0 {
-					CmdPb(pileA, pileB)
-				} else {
-					cmd.Ra(pileA)
-					CounterMoves()
-					fmt.Println("Apres ra 5RP:", *pileA)
-				}
-			}
+	// Vérifier si minValue est dans pileB et remonter secondMinValue si nécessaire
+	if ContainsNbr(pileB, minValue) && !EstTrie(pileA, pileB) && estTriee {
+		cmd.Sa(pileA)
+		CounterMoves()
+		fmt.Println("Apres sa 5RP k:", *pileA)
+		CmdPb(pileA, pileB)
+		return
+	}
+
+	// Vérifier si secondMinValue est dans pileB et remonter minValue si nécessaire
+	if ContainsNbr(pileB, secondMinValue) && !EstTrie(pileA, pileB) && estTriee {
+		cmd.Sa(pileA)
+		CounterMoves()
+		fmt.Println("Apres sa 5RP k:", *pileA)
+		CmdPb(pileA, pileB)
+		return
+	}
+
+	for i := 0; i < movesMin; i++ {
+		minIndex = MinIndex(*pileA)
+		if minIndex == 0 || secondMinIndex == 0 {
+			CmdPb(pileA, pileB)
+		} else {
+			cmd.Ra(pileA)
+			CounterMoves()
+			fmt.Println("Apres ra 5RP:", *pileA)
 		}
+	}
 
-		CmdPb(pileA, pileB)
-		return
-	}
-	if minIndex > pivot && !EstTrie(pileA, pileB) {
-		for i := 0; i < movesMin; i++ {
-			minIndex = MinIndex(*pileA)
-			if minIndex == 1 && !EstTrie(pileA, pileB) && estTriee {
-				cmd.Sa(pileA)
-				CounterMoves()
-				fmt.Println("Apres sa 5RP f:", *pileA)
-				CmdPb(pileA, pileB)
-				return
-			} else {
-				minIndex = MinIndex(*pileA)
-				if minIndex == 0 || secondMinIndex == 0 {
-					CmdPb(pileA, pileB)
-				} else {
-					cmd.Rra(pileA)
-					CounterMoves()
-					fmt.Println("Apres rra 5RP z:", *pileA)
-				}
-			}
-		}
-		CmdPb(pileA, pileB)
-		return
-	}
+	CmdPb(pileA, pileB)
 }
 
 //______________________________________________________________________________
 
-func CmdPb(pileA *models.Stack, pileB *models.Stack) {
+func CmdPb(pileA, pileB *models.Stack) {
 	minIndex := MinIndex(*pileA)
 	secondMinIndex := SecondMinIndex(*pileA, minIndex)
 	if (minIndex == 0 || secondMinIndex == 0) && !EstTrie(pileA, pileB) && pileA.Size() > 3 {
@@ -105,4 +86,15 @@ func CmdPb(pileA *models.Stack, pileB *models.Stack) {
 	} else {
 		fmt.Println("Déjà tries before pb RP:", *pileA, *pileB)
 	}
+}
+
+// __________________________________________________________________________________
+// Contains vérifie si l'élément est présent dans la pile.
+func ContainsNbr(pileB *models.Stack, element int) bool {
+	for _, value := range *pileB {
+		if value == element {
+			return true
+		}
+	}
+	return false
 }
