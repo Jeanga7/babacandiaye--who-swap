@@ -18,6 +18,7 @@ func RemonterPlusPetit(pileA, pileB *models.Stack) {
 
 	minIndex := MinIndex(*pileA)
 	minValue := (*pileA)[minIndex].(int)
+	contentB := (*pileB)[0].(int)
 	secondMinIndex := SecondMinIndex(*pileA, minIndex)
 	secondMinValue := (*pileA)[secondMinIndex].(int)
 	movesMin := minIndex
@@ -35,10 +36,6 @@ func RemonterPlusPetit(pileA, pileB *models.Stack) {
 		movesMin = len(*pileA) - minIndex
 	}
 
-/* 	if  pivot >= secondMinIndex && secondMinIndex > minIndex {
-		movesMin = len(*pileA) - minIndex
-	}
- */
 	if (minIndex == 1 || secondMinIndex == 1) && !EstTrie(pileA, pileB) {
 		cmd.Sa(pileA)
 		CounterMoves()
@@ -50,6 +47,11 @@ func RemonterPlusPetit(pileA, pileB *models.Stack) {
 	if minIndex <= pivot && !EstTrie(pileA, pileB) {
 		for i := 0; i < movesMin; i++ {
 			minIndex = MinIndex(*pileA)
+			contentB = (*pileB)[0].(int)
+			minValue = (*pileA)[minIndex].(int)
+			if contentB > minValue && pileB.Size() > 0 {
+				fmt.Println("hello")
+			}
 			if minIndex == 1 && !EstTrie(pileA, pileB) && estTriee {
 				cmd.Sa(pileA)
 				CounterMoves()
@@ -65,6 +67,7 @@ func RemonterPlusPetit(pileA, pileB *models.Stack) {
 					cmd.Rra(pileA)
 					CounterMoves()
 					fmt.Println("Apres rra 5RP g:", *pileA)
+					
 				} else {
 					fmt.Println("min", minIndex, minValue)
 					fmt.Println("sec", secondMinIndex, secondMinValue)
@@ -90,10 +93,6 @@ func RemonterPlusPetit(pileA, pileB *models.Stack) {
 				minIndex = MinIndex(*pileA)
 				if minIndex == 0 || secondMinIndex == 0 {
 					CmdPb(pileA, pileB)
-				}else if minIndex > secondMinIndex || minIndex < secondMinIndex {
-					cmd.Ra(pileA)
-					CounterMoves()
-					fmt.Println("Apres ra 5RP g:", *pileA)
 				} else {
 					cmd.Rra(pileA)
 					CounterMoves()
@@ -108,17 +107,22 @@ func RemonterPlusPetit(pileA, pileB *models.Stack) {
 //______________________________________________________________________________
 
 func CmdPb(pileA, pileB *models.Stack) {
+
+	if pileA.Size() < 4 {
+		return
+	}
+
 	minIndex := MinIndex(*pileA)
 	secondMinIndex := SecondMinIndex(*pileA, minIndex)
-	if (minIndex == 0 || secondMinIndex == 0) && !EstTrie(pileA, pileB) && pileA.Size() > 3 {
+	
+	if minIndex == 0 || secondMinIndex == 0 {
 		cmd.Pb(pileA, pileB)
 		CounterMoves()
-		fmt.Println("Apres pb RP :", *pileA, *pileB)
+		fmt.Println("Après pb RP :", *pileA, *pileB)
 	} else {
-		fmt.Println("Déjà tries before pb RP:", *pileA, *pileB)
+		fmt.Println("Déjà trié avant pb RP:", *pileA, *pileB)
 	}
 }
-
 /* // __________________________________________________________________________________
 // Contains vérifie si l'élément est présent dans la pile.
 func ContainsNbr(pileB *models.Stack, element int) bool {
