@@ -18,7 +18,7 @@ func RemonterPlusPetit(pileA, pileB *models.Stack) {
 
 	minIndex := MinIndex(*pileA)
 	minValue := (*pileA)[minIndex].(int)
-	contentB := (*pileB)[0].(int)
+	//contentB := (*pileB)[0].(int)
 	secondMinIndex := SecondMinIndex(*pileA, minIndex)
 	secondMinValue := (*pileA)[secondMinIndex].(int)
 	movesMin := minIndex
@@ -47,11 +47,7 @@ func RemonterPlusPetit(pileA, pileB *models.Stack) {
 	if minIndex <= pivot && !EstTrie(pileA, pileB) {
 		for i := 0; i < movesMin; i++ {
 			minIndex = MinIndex(*pileA)
-			contentB = (*pileB)[0].(int)
-			minValue = (*pileA)[minIndex].(int)
-			if contentB > minValue && pileB.Size() > 0 {
-				fmt.Println("hello")
-			}
+			
 			if minIndex == 1 && !EstTrie(pileA, pileB) && estTriee {
 				cmd.Sa(pileA)
 				CounterMoves()
