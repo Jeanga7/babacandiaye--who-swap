@@ -68,7 +68,7 @@ func Traitement(A_number models.Stack,B_number models.Stack,en []int){
 		return
 	}
 	// CheckDuplication(n, pileA)
-	// low := utils.Check_low(en)
+	lows := utils.Check_low(en)
 	fmt.Println(A_number...)
 	// utils.CheckPos(&A_number, low, &P)
 	fmt.Println(P)
@@ -76,7 +76,7 @@ func Traitement(A_number models.Stack,B_number models.Stack,en []int){
 	utils.Check_lower(&A_number)
 	// algorithm.Swapping(&A_number, &B_number, low)
 	// utils.Swapping(&A_number, &B_number, low)
-	algorithm.Swapper(&A_number, &B_number)
+	algorithm.Swapper(&A_number, &B_number, lows)
 	fmt.Println("this is the new positions")
 	fmt.Println(A_number...)
 	fmt.Println("move :",models.Count)
