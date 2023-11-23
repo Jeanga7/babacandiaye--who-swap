@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-// TO RUN ------>  |-->  `go run tests/generate_nbrs.go 10 3 > test/output.sh`
+// TO RUN ------>  |-->  go run tests/generate_nbrs.go 10 5 > tests/output.sh ; ./tests/output.sh
 
 func main() {
 	rand.Seed(time.Now().UnixNano())

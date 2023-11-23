@@ -20,13 +20,19 @@ func TrierB(pileA, pileB *models.Stack) {
 		if minIndexB == 0 && maxIndexA == 1 && minIndexA == 0 {
 			cmd.Ss(pileA, pileB)
 			CounterMoves()
-			fmt.Println("Après ss 3:", *pileA, *pileB)
+			fmt.Println("Après ss triB:", *pileA, *pileB)
 		}else if minIndexB == 0 && maxIndexA == 0 && minIndexA == 2{
-
+			cmd.Ss(pileA, pileB)
+			CounterMoves()
+			fmt.Println("Après ss triB:", *pileA, *pileB)
+		} else if minIndexB == 0 && minIndexA == pileA.Size()-1{
+			cmd.Rrr(pileA, pileB)
+			CounterMoves()
+			fmt.Println("Après rra triB:", *pileA, *pileB)
 		} else if minIndexB == 0 {
 			cmd.Sb(pileB)
 			CounterMoves()
-			fmt.Println("Après sb 3:", *pileA, *pileB)
+			fmt.Println("Après sb triB:", *pileA, *pileB)
 		} else {
 			EstTrie(pileA, pileB)
 		}
