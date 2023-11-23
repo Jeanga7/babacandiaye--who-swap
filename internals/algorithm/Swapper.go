@@ -114,11 +114,9 @@ func MaxPile(a *models.Stack) int {
 
 // code propre
 func Swapper(PileA *models.Stack, PileB *models.Stack, lows []int) {
-	// var P Positions
 outerloop:
 	for !IsSorted(PileA) {
 		for i, n := range *PileA {
-			// CheckPos(PileA, lows, &P)
 			low := SmallestFromStack(PileA)
 			minA := MinPile(PileA)
 			maxA := MaxPile(PileA)
@@ -142,22 +140,16 @@ outerloop:
 				Less6Sorted(PileA, PileB, minA, maxA, low, i, n, pivot)
 				continue outerloop
 			}
-			// //_______________________________
-			// //				  traitement à 10
-			if PileA.Size() <= 100 {
+			if PileA.Size() <= 50 {
 				LesstenSorted(PileA, PileB, minA, maxA, lows, pivot)
 				continue outerloop
 			}
-			// //_______________________________
-			// //				  traitement à 50
-			// if PileA.Size() <= 50 {
-			// 	fmt.Println("defal nank")
-			// }
 			// //_________________________________
 			// //				  traitement à 100
-			// if PileA.Size() <= 100 {
-			// 	fmt.Println("defal nank")
-			// }
+			if PileA.Size() <= 100 {
+				fmt.Println("the100")
+				Less100Sorted(PileA, PileB, lows, pivot)
+			}
 		}
 	}
 	if IsSorted(PileA) && len(*PileB) != 0 {

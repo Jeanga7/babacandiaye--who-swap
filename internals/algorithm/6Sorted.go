@@ -6,7 +6,7 @@ import (
 	"push/internals/models"
 )
 
-// cette fonction gere le trie des valeurs inférieurs à 6
+// cette fonction gere le trie des valeurs inférieurs ou égal à 6
 func Less6Sorted(PileA *models.Stack, PileB *models.Stack, minA int, maxA int, low []int, i int, n interface{}, pivot int) {
 	if PileA.Size() == 4 {
 		for _, l := range low {

@@ -3,10 +3,12 @@ package utils
 import (
 	"fmt"
 	"os"
+	"push/internals/algorithm"
 	"push/internals/cmd"
 	"push/internals/models"
 	"runtime"
 	"sort"
+	"strings"
 )
 
 type Positions struct {
@@ -49,9 +51,7 @@ func Check_lower(a *models.Stack) {
 	fmt.Println(*a)
 }
 
-//	permet dee checker les plus petites valeurs données par l'user
-//
-// à supprimer je pense (edieng)
+// permet dee checker les plus petites valeurs données par l'user
 func Check_low(a []int) []int {
 	taille := len(a)
 	sort.Ints(a)
@@ -76,20 +76,26 @@ func Check_low(a []int) []int {
 	return low
 }
 
-// permet de recuperer l'index des plus petites valeurs (low)
-func CheckPos(a *models.Stack, low []int, pos *Positions) {
-	pos.Pos = nil
-	for i, n := range *a {
-		for _, l := range low {
-			if n.(int) == l {
-				pos.Pos = append(pos.Pos, i)
-				break
-			}
+// permet d'extraire les plus petites valeurs
+func SmallestFromStack(PileA *models.Stack) []int {
+	numToExtract := PileA.Size() / 2
+	if numToExtract < 0 {
+		numToExtract = 0
+	}
+
+	// Convertir la pile en une tranche pour le tri
+	numbers := make([]int, PileA.Size())
+	for i, v := range *PileA {
+		// Assertion de type
+		if val, ok := v.(int); ok {
+			numbers[i] = val
 		}
 	}
-}
 
-// this function has the role of swapping until having all the intergers sorted
+	sort.Ints(numbers)
+	smallestNumbers := numbers[:numToExtract]
+	return smallestNumbers
+}
 
 // verifie si une pile est ascendant
 func IsSorted(stack *models.Stack) bool {
@@ -106,7 +112,6 @@ func SortedA(stack *models.Stack) {
 	if (*stack)[0].(int) > (*stack)[1].(int) {
 		cmd.Sa(stack)
 	}
-
 }
 
 // verifie si une pile est descendant
@@ -119,8 +124,8 @@ func IsinvSorted(stack *models.Stack) bool {
 	return true
 }
 
-// permet d'extraire le min du  pile A
-func MinA(a *models.Stack) int {
+// permet d'extraire la pos de min du  pile A
+func MinPile(a *models.Stack) int {
 	min := 1000000000000
 	pos := 0
 	for i, x := range *a {
@@ -132,134 +137,75 @@ func MinA(a *models.Stack) int {
 	return pos
 }
 
-// ceci n'est pas une fonction
-func Swapping(PileA *models.Stack, PileB *models.Stack, low []int) {
-	var P Positions
-outerloop:
-	for !IsSorted(PileA) {
-		for i, n := range *PileA {
-			CheckPos(PileA, low, &P)
-			min := MinA(PileA)
-			for _, l := range low {
-				if n == l && i == 0 {
-					cmd.Pb(PileA, PileB)
-					fmt.Println("Pb")
-					fmt.Println(*PileA...)
-					models.Count++
-					continue outerloop
-				}
-				if n == l && i == len(*PileA)-1 {
-					cmd.Rra(PileA)
-					fmt.Println("Rra")
-					models.Count++
-					continue outerloop
-				}
-				// _________
-				//       2 1
-				if PileA.Size() == 2 {
-					cmd.Sa(PileA)
-					fmt.Println("Sa")
-					models.Count++
-					continue outerloop
-				} else if PileA.Size() == 3 {
-					// ____________
-					//        2 1 3
-					if n == l && i == 1 && (*PileA)[2].(int) > (*PileA)[0].(int) {
-						cmd.Sa(PileA)
-						fmt.Println("Sa")
-						models.Count++
-						continue outerloop
-					}
-					// ____________
-					//        3 1 2
-					if n == l && i == 1 && (*PileA)[0].(int) > (*PileA)[2].(int) {
-						cmd.Ra(PileA)
-						fmt.Println("Ra")
-						models.Count++
-						continue outerloop
-					}
-					// ____________
-					//        2 3 1
-					if n == l && i == 2 && (*PileA)[1].(int) > (*PileA)[2].(int) {
-						cmd.Rra(PileA)
-						fmt.Println("Rra")
-						models.Count++
-						continue outerloop
-					}
-					// _____________
-					//         3 2 1
-					if n == l && i == 2 && (*PileA)[0].(int) > (*PileA)[1].(int) {
-						cmd.Ra(PileA)
-						fmt.Println("Ra")
-						models.Count++
-						continue outerloop
-					}
-					// _____________
-					//         1 3 2
-					if n == l && i == 0 && (*PileA)[1].(int) > (*PileA)[2].(int) {
-						cmd.Rra(PileA)
-						fmt.Println("Rra")
-						models.Count++
-						continue outerloop
-					}
-				}
-			}
-			
-			if min == 1 && (*PileA)[2].(int) > (*PileA)[0].(int) {
-				cmd.Sa(PileA)
-				fmt.Println("Sa")
-				models.Count++
-				continue outerloop
-			}
-			// ____________
-			//        3 1 2
-			if min == 1 && (*PileA)[0].(int) > (*PileA)[2].(int) {
-				cmd.Ra(PileA)
-				fmt.Println("Ra")
-				models.Count++
-				continue outerloop
-			}
-			// ____________
-			//        2 3 1
-			if min == 2 && (*PileA)[1].(int) > (*PileA)[2].(int) {
-				cmd.Rra(PileA)
-				fmt.Println("Rra")
-				models.Count++
-				continue outerloop
-			}
-			// _____________
-			//         3 2 1
-			if min == 2 && (*PileA)[0].(int) > (*PileA)[1].(int) {
-				cmd.Ra(PileA)
-				fmt.Println("Ra")
-				models.Count++
-				continue outerloop
-			}
-			// _____________
-			//         1 3 2
-			if min == 0 && (*PileA)[1].(int) > (*PileA)[2].(int) {
-				cmd.Rra(PileA)
-				fmt.Println("Rra")
-				models.Count++
-				continue outerloop
-			}
-			//min est plus proche du bas
-			if min == len(*PileA)-3 || min == len(*PileA)-2 {
-				cmd.Rra(PileA)
-				fmt.Println("Rra")
-				models.Count++
-				continue outerloop
+// permet d'extraire la pos de max du pile A
+func MaxPile(a *models.Stack) int {
+	max := -1000000000000
+	pos := 0
+	for i, x := range *a {
+		if x.(int) > max {
+			max = x.(int)
+			pos = i
+		}
+	}
+	return pos
+}
+
+// permet de recuperer l'index des plus petites valeurs (low)
+func CheckPos(a *models.Stack, low []int, pos *Positions) {
+	pos.Pos = nil
+	for i, n := range *a {
+		for _, l := range low {
+			if n.(int) == l {
+				pos.Pos = append(pos.Pos, i)
+				break
 			}
 		}
 	}
-	//______________________________________________________
-	//           si PA asc et PB desc à verifier si PB != nil
-	if IsSorted(PileA) {
-		if len(*PileB) > 0 {
-			fmt.Println("here")
-			cmd.Pa(PileB, PileA)
-			fmt.Println("Pa")
-			models.Count++
+}
+
+// verifie la validité des arguments
+func IsValidArg(arg string) {
+	if strings.Contains(arg, " ") {
+		for _, ch := range arg {
+			if (ch >= '0' || ch <= '9') || ch == 32 {
+				continue
+			} else {
+				fmt.Println("Error")
+				return
+			}
+		}
+	} else {
+		fmt.Println("\033[91m" + "Error : " + "\033[0m" + "At least 2 numbers are required")
+		os.Exit(0)
+	}
+}
+
+// cette fonction permet de recuperer les piles, de checker les potentiels erreurs et de les tries s'ils sont correctes
+func Traitement(A_number models.Stack, B_number models.Stack, en []int) {
+	if IsSorted(&A_number) {
+		fmt.Println("\033[91m" + "Error" + "\033[0m" + ": Sorted Stack")
+		return
+	}
+	if A_number.Size() > 50 {
+		fmt.Println("\033[91m" + "Error" + "\033[0m" + ": The Algorithm doesn't sort the number greater than 50")
+		return
+	}
+	lows := Check_low(en)
+	fmt.Print("Stack A : ")
+	fmt.Println(A_number...)
+	fmt.Println("=======P=U=S=H==S=W=A=P=======")
+	algorithm.Swapper(&A_number, &B_number, lows)
+	fmt.Println("this is the new positions")
+	fmt.Println(A_number...)
+	fmt.Println("\033[91m"+"Move :"+"\033[0m", models.Count)
+}
+
+// cette fonction permet de checker s'il y'a presence d'une doublure dans la pile
+func CheckDuplication(nombre int, pile models.Stack) error {
+	for _, n := range pile {
+		if n == nombre {
+			return fmt.Errorf("error : Le nombre %v est déjà présent dans la pile.", nombre)
 		}
 	}
+	return nil
 }

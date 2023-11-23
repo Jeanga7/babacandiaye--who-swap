@@ -26,7 +26,7 @@ func main() {
 		for i := 0; i < numLines; i++ {
 			line := generateRandomLine(numNumbers)
 			fmt.Print("go run . " + strconv.Quote(line) + "\n")
-			fmt.Print("echo " + ".........................................................................." + " \n")
+			fmt.Print("echo " + "_______________________________________________________________________________________________________________________" + " \n")
 		}
 	} else {
 		fmt.Println("Veuillez spécifier le nombre de lignes et le nombre de nombres par ligne en tant qu'arguments.")
