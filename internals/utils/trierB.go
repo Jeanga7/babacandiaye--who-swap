@@ -6,11 +6,10 @@ import (
 	"push/internals/models"
 )
 
-
 func TrierB(pileA, pileB *models.Stack) {
 	maxIndexA := MaxIndex(*pileA)
 	minIndexA := MinIndex(*pileA)
-	//maxIndexB := MaxIndex(*pileB)
+	maxIndexB := MaxIndex(*pileB)
 	minIndexB := MinIndex(*pileB)
 	if len(*pileA) < 2 {
 		fmt.Println("Pas besoin de trier", *pileA, *pileB)
@@ -21,11 +20,11 @@ func TrierB(pileA, pileB *models.Stack) {
 			cmd.Ss(pileA, pileB)
 			CounterMoves()
 			fmt.Println("Après ss triB:", *pileA, *pileB)
-		}else if minIndexB == 0 && maxIndexA == 0 && minIndexA == 2{
+		} else if minIndexB == 0 && maxIndexA == 0 && minIndexA == 2 {
 			cmd.Ss(pileA, pileB)
 			CounterMoves()
 			fmt.Println("Après ss triB:", *pileA, *pileB)
-		} else if minIndexB == 0 && minIndexA == pileA.Size()-1{
+		} else if minIndexB == 0 && minIndexA == pileA.Size()-1 {
 			cmd.Rrr(pileA, pileB)
 			CounterMoves()
 			fmt.Println("Après rra triB:", *pileA, *pileB)
@@ -39,35 +38,77 @@ func TrierB(pileA, pileB *models.Stack) {
 		return
 	}
 
-
-	// if len(*pileA) == 3 {
-	// 	if maxIndex == 0 && minIndex == pileB.Size()-1 {
-	// 		cmd.Sa(pileA)
-	// 		CounterMoves()
-	// 		fmt.Println("Après sa 3 :", *pileA, *pileB)
-	// 		cmd.Rra(pileA)
-	// 		CounterMoves()
-	// 		fmt.Println("Après rra 3 A:", *pileA, *pileB)
-	// 	} else if maxIndex == 0 && minIndex == 1 {
-	// 		cmd.Ra(pileA)
-	// 		CounterMoves()
-	// 		fmt.Println("Après ra 3:", *pileA, *pileB)
-	// 	} else if maxIndex == 1 && minIndex == pileB.Size()-1 {
-	// 		cmd.Rra(pileA)
-	// 		CounterMoves()
-	// 		fmt.Println("Après rra 3:", *pileA, *pileB)
-	// 	} else if maxIndex == 1 && minIndex == 0 {
-	// 		cmd.Sa(pileA)
-	// 		CounterMoves()
-	// 		fmt.Println("Après sa 3 :", *pileA, *pileB)
-	// 		cmd.Ra(pileA)
-	// 		CounterMoves()
-	// 		fmt.Println("Après ra 3 A:", *pileA, *pileB)
-	// 	} else if maxIndex == pileB.Size()-1 && minIndex == 1 {
-	// 		cmd.Sa(pileA)
-	// 		CounterMoves()
-	// 		fmt.Println("Après sa 3:", *pileA, *pileB)
-	// 	}
-	// }
+	if len(*pileA) == 3 {
+		if maxIndexB == 2 && minIndexB == 1 {
+			if minIndexA == pileA.Size()-1 {
+				cmd.Rrr(pileA, pileB)
+				CounterMoves()
+				fmt.Println("Après rrr trieB :", *pileA, *pileB)
+			} else {
+				cmd.Rrb(pileB)
+				CounterMoves()
+				fmt.Println("Après rrb trieB :", *pileA, *pileB)
+			}
+		} else if maxIndexB == 1 && minIndexA == 2 {
+			if minIndexA == 1 {
+				cmd.Ss(pileA, pileB)
+				CounterMoves()
+				fmt.Println("Après ss trieB :", *pileA, *pileB)
+			} else {
+				cmd.Sb(pileB)
+				CounterMoves()
+				fmt.Println("Après sb trieB :", *pileA, *pileB)
+			}
+		} else if maxIndexB == 0 && minIndexB == 1 {
+			if minIndexA == 1 {
+				cmd.Sb(pileB)
+				CounterMoves()
+				fmt.Println("Après sb trieB :", *pileA, *pileB)
+				cmd.Rr(pileA, pileB)
+				CounterMoves()
+				fmt.Println("Après rr trieB :", *pileA, *pileB)
+			} else {
+				cmd.Sb(pileB)
+				CounterMoves()
+				fmt.Println("Après sb trieB :", *pileA, *pileB)
+				cmd.Rb(pileB)
+				CounterMoves()
+				fmt.Println("Après rb trieB :", *pileA, *pileB)
+			}
+		} else if maxIndexB == 2 && minIndexB == 0 {
+			if minIndexA == 1{
+				cmd.Ss(pileA, pileB)
+				CounterMoves()
+				fmt.Println("Après sb trieB :", *pileA, *pileB)
+				cmd.Rrb(pileA)
+				CounterMoves()
+				fmt.Println("Après rrb trieB :", *pileA, *pileB)
+			}else if minIndexA == pileA.Size()-1 {
+				cmd.Sb(pileB)
+				CounterMoves()
+				fmt.Println("Après sb trieB :", *pileA, *pileB)
+				cmd.Rrr(pileA, pileB)
+				CounterMoves()
+				fmt.Println("Après rrr trieB :", *pileA, *pileB)
+			} else {
+				cmd.Sb(pileB)
+				CounterMoves()
+				fmt.Println("Après sb trieB :", *pileA, *pileB)
+				cmd.Rrb(pileB)
+				CounterMoves()
+				fmt.Println("Après rrb trieB :", *pileA, *pileB)
+			}
+		} else if maxIndexB == 1 && minIndexB == 0 {
+			if minIndexA == 0 {
+				cmd.Rr(pileA, pileB)
+				CounterMoves()
+				fmt.Println("Après rr trieB :", *pileA, *pileB)
+			} else {
+				cmd.Rb(pileB)
+				CounterMoves()
+				fmt.Println("Après Rb trieB :", *pileA, *pileB)
+			}
+		}
+	}
 	EstTrie(pileA, pileB)
 }

@@ -50,7 +50,7 @@ func main() {
 		// Vérification du nombre d'entiers
 		if len(pileA) <= 5 {
 			psPetit.TrierPetitePile(&pileA, &pileB)
-		} else if len(pileA) > 5 || len(pileA) <= 10 {
+		} else if len(pileA) > 5 {
 			psGrand.TrierGrandePile(&pileA, &pileB)
 		} else {
 			utils.Throw("Nombre d'entiers incorrect" + utils.Log())

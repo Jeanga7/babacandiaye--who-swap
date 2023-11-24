@@ -9,31 +9,34 @@ import (
 )
 
 func TrierDixNombres(pileA, pileB *models.Stack) {
-	iterations := len(*pileA) - 3
-
 	if utils.EstTrie(pileA, pileB) {
-		fmt.Println("Déjà triés 6:", pileA)
+		fmt.Println("Déjà triés 6:", *pileA, *pileB)
 		return
 	}
-
-	for i := 0; i < iterations; i++ {
-		utils.RemonterPlusPetit(pileA, pileB)
-		if !utils.EstTrie(pileA, pileB) {
-			cmd.Pb(pileA, pileB)
-			utils.CounterMoves()
-			fmt.Println("Après pb 6:", *pileA, *pileB)
-		} else {
-			fmt.Println("Déjà triés avant pb 6:", *pileA, *pileB)
-		}
+	cmd.Pb(pileA, pileB)
+	utils.CounterMoves()
+	fmt.Println("Après pb RP :", *pileA, *pileB)
+	if pileB.Size() <= 5 {
+		fmt.Println("debut trie a 5")
 		psPetit.TrierCinqNombres(pileA, pileB)
+		fmt.Println("fin trie a 5")
 	}
 
-	psPetit.TrierCinqNombres(pileA, pileB)
-
 	for len(*pileB) > 0 {
+		if (*pileA)[0].(int) > (*pileA)[1].(int) {
+			cmd.Sa(pileA)
+			utils.CounterMoves()
+			fmt.Println("Apres sa 6:", *pileA, *pileB)
+		}
 		cmd.Pa(pileB, pileA)
 		utils.CounterMoves()
 		fmt.Println("Après pa 6:", *pileA, *pileB)
-		psPetit.TrierCinqNombres(pileA, pileB)
+		psPetit.TrierTroisNombres(pileA, pileB)
+	}
+
+	if !utils.EstTrie(pileA, pileB) && pileB.Size() == 0 {
+		cmd.Sa(pileA)
+		utils.CounterMoves()
+		fmt.Println("Apres sa 6:", *pileA, *pileB)
 	}
 }
