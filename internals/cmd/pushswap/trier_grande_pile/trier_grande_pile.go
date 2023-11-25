@@ -16,7 +16,7 @@ func TrierGrandePile(pileA, pileB *models.Stack) {
 		return 
 	}
 
-	if len(*pileA) <= 10 {
+	if len(*pileA) <= 100 {
 		TrierDixNombres(pileA, pileB)
 	} else {
 		utils.RemonterPlusPetit(pileA, pileB)

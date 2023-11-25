@@ -13,12 +13,13 @@ func TrierDixNombres(pileA, pileB *models.Stack) {
 		fmt.Println("Déjà triés 6:", *pileA, *pileB)
 		return
 	}
-	cmd.Pb(pileA, pileB)
-	utils.CounterMoves()
-	fmt.Println("Après pb RP :", *pileA, *pileB)
+	
+	utils.RemonterPlusPetit(pileA, pileB)
+
+
 	if pileB.Size() <= 5 {
 		fmt.Println("debut trie a 5")
-		psPetit.TrierCinqNombres(pileA, pileB)
+		utils.RadixSort(pileA)
 		fmt.Println("fin trie a 5")
 	}
 

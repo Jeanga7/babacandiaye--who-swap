@@ -21,3 +21,4 @@ func MaxIndex(slice models.Stack) int {
 
 	return maxIndex
 }
+

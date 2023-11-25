@@ -50,14 +50,14 @@ func TrierB(pileA, pileB *models.Stack) {
 				fmt.Println("Après rrb trieB :", *pileA, *pileB)
 			}
 		} else if maxIndexB == 1 && minIndexA == 2 {
-			if minIndexA == 1 {
+			if minIndexA == 1 || (maxIndexA == 0 && minIndexA == pileA.Size()-1) {
 				cmd.Ss(pileA, pileB)
 				CounterMoves()
 				fmt.Println("Après ss trieB :", *pileA, *pileB)
 			} else {
 				cmd.Sb(pileB)
 				CounterMoves()
-				fmt.Println("Après sb trieB :", *pileA, *pileB)
+				fmt.Println("Après sb trieB ici:", *pileA, *pileB)
 			}
 		} else if maxIndexB == 0 && minIndexB == 1 {
 			if minIndexA == 1 {
